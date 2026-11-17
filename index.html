@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Boostify Digital - Facebook Boosting & Marketing</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Top Header -->
+  <header class="header">
+    <div class="header-top">
+      <div class="brand">
+        <h1>Boostify Digital</h1>
+        <p data-bn="বিশ্বস্ত ফেসবুক বুস্টিং ও ডিজিটাল মার্কেটিং সার্ভিস" data-en="Trusted Facebook Boosting & Digital Marketing Service">বিশ্বস্ত ফেসবুক বুস্টিং ও ডিজিটাল মার্কেটিং সার্ভিস</p>
+      </div>
+      <button id="langToggle" class="lang-btn" onclick="toggleLanguage()">English</button>
+    </div>
+    <div class="rate-pill">
+      <span data-bn="আজকের ডলার রেট:" data-en="Today's Dollar Rate:">আজকের ডলার রেট:</span>
+      <strong><span id="liveRate">130</span> <span data-bn="টাকা / $1" data-en="BDT / $1">টাকা / $1</span></strong>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- Custom Dollar Calculator -->
+    <section class="calc-card">
+      <h2 data-bn="🧮 কাস্টম ডলার বাজেট ক্যালকুলেটর" data-en="🧮 Custom Dollar Budget Calculator">🧮 কাস্টম ডলার বাজেট ক্যালকুলেটর</h2>
+      <div class="calc-grid">
+        <div class="input-wrap">
+          <label data-bn="কত ডলার বুস্ট করবেন ($):" data-en="Enter Dollar Amount ($):">কত ডলার বুস্ট করবেন ($):</label>
+          <input type="number" id="customDollar" value="5" min="1" oninput="updateCustomCalc()" />
+        </div>
+        <div class="total-box">
+          <span data-bn="সর্বমোট বিল:" data-en="Total Bill:">সর্বমোট বিল:</span>
+          <strong><span id="customTotalTaka">650</span> <span data-bn="টাকা" data-en="BDT">টাকা</span></strong>
+        </div>
+        <button class="btn-primary" onclick="orderCustomDollar()" data-bn="কাস্টম অর্ডার করুন" data-en="Order Custom Boost">কাস্টম অর্ডার করুন</button>
+      </div>
+    </section>
+
+    <!-- Packages Section -->
+    <section>
+      <h2 class="section-title" data-bn="🔥 জনপ্রিয় বুস্টিং প্যাকেজসমূহ" data-en="🔥 Popular Boosting Packages">🔥 জনপ্রিয় বুস্টিং প্যাকেজসমূহ</h2>
+      <div id="packagesGrid" class="packages-grid">
+        <p class="loading-text" data-bn="প্যাকেজ লোড হচ্ছে..." data-en="Loading packages...">প্যাকেজ লোড হচ্ছে...</p>
+      </div>
+    </section>
+  </main>
+
+  <!-- Order Modal -->
+  <div id="orderModal" class="modal">
+    <div class="modal-content">
+      <h3 id="modalPkgName">Package Name</h3>
+      <p id="modalPkgPrice" class="modal-price"></p>
+
+      <div class="payment-info-box">
+        <p data-bn="নিচের নম্বরে Send Money / Cash In করুন:" data-en="Send Money to the number below:">নিচের নম্বরে Send Money / Cash In করুন:</p>
+        <div class="pay-number-row">
+          <strong id="displayPayNumber">01815395746</strong>
+          <button type="button" class="copy-btn" onclick="copyPayNumber()" data-bn="কপি" data-en="Copy">কপি</button>
+        </div>
+        <small data-bn="(bKash / Nagad / Rocket Personal)" data-en="(bKash / Nagad / Rocket Personal)">(bKash / Nagad / Rocket Personal)</small>
+      </div>
+
+      <form id="orderForm" onsubmit="submitOrder(event)">
+        <div class="form-group">
+          <label data-bn="আপনার নাম *" data-en="Your Name *">আপনার নাম *</label>
+          <input type="text" id="custName" required placeholder="Name" />
+        </div>
+        <div class="form-group">
+          <label data-bn="ফেসবুক পেজ বা পোস্টের লিংক *" data-en="Facebook Page or Post Link *">ফেসবুক পেজ বা পোস্টের লিংক *</label>
+          <input type="url" id="custLink" required placeholder="https://facebook.com/..." />
+        </div>
+        <div class="form-group">
+          <label data-bn="আপনার মোবাইল / WhatsApp নম্বর *" data-en="Your Mobile / WhatsApp Number *">আপনার মোবাইল / WhatsApp নম্বর *</label>
+          <input type="tel" id="custPhone" required placeholder="01XXXXXXXXX" />
+        </div>
+        <div class="form-group">
+          <label data-bn="পেমেন্টের সময় ও নিয়ম সিলেক্ট করুন *" data-en="Select Payment Time *">পেমেন্টের সময় ও নিয়ম সিলেক্ট করুন *</label>
+          <select id="paymentTiming" required>
+            <option value="Paid Before Work (কাজ শুরুর আগে পেমেন্ট)">কাজ শুরুর আগেই পেমেন্ট সম্পন্ন করেছি (Paid Before)</option>
+            <option value="Pay After Work (কাজ শেষে পেমেন্ট)">কাজ সম্পূর্ণ হওয়ার পরে পেমেন্ট করব (Pay After Work)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label data-bn="পেমেন্ট মেথড *" data-en="Payment Method *">পেমেন্ট মেথড *</label>
+          <select id="payMethod">
+            <option value="bKash">bKash (বিকাশ)</option>
+            <option value="Nagad">Nagad (নগদ)</option>
+            <option value="Rocket">Rocket (রকেট)</option>
+            <option value="Not Paid Yet">পরে পেমেন্ট করব (Not Paid Yet)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label data-bn="যে নম্বর থেকে টাকা পাঠিয়েছেন বা TrxID *" data-en="Sender Number or TrxID *">যে নম্বর থেকে টাকা পাঠিয়েছেন বা TrxID *</label>
+          <input type="text" id="trxInfo" placeholder="017XXXXXXXX / TrxID (পরে দিলে 'Later' লিখুন)" />
+        </div>
+
+        <button type="submit" id="submitOrderBtn" class="btn-primary" data-bn="অর্ডার কনফার্ম করুন" data-en="Confirm Order">অর্ডার কনফার্ম করুন</button>
+        <button type="button" class="btn-secondary" onclick="closeOrderModal()" data-bn="বাতিল করুন" data-en="Cancel">বাতিল করুন</button>
+      </form>
+    </div>
+  </div>
+
+  <div id="toast" class="toast"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
