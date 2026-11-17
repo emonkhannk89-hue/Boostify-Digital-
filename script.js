@@ -6,35 +6,62 @@ let currentLang = "bn";
 let dollarRate = 130;
 let paymentNumber = "01815395746";
 let packagesList = [];
-let activeOrder = { title: "", price: 0, dollars: 0 };
+let activeOrder = { titleBn: "", titleEn: "", price: 0, dollars: 0 };
 
-const defaultPackages = {
-  pkg1: {
-    title_bn: "স্টার্টার বুস্ট ($৫)",
-    title_en: "Starter Boost ($5)",
-    desc_bn: "নতুন পেজ বা পোস্টের রিচ ও এঙ্গেজমেন্ট বাড়ানোর জন্য সেরা প্যাকেজ।",
-    desc_en: "Best package to increase reach and engagement for new pages or posts.",
-    dollars: 5,
-    discount: 50,
-    img: "https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=600&q=80"
+const translations = {
+  bn: {
+    tagline: "বিশ্বস্ত ফেসবুক বুস্টিং ও ডিজিটাল মার্কেটিং সার্ভিস",
+    rateLabel: "আজকের ডলার রেট:",
+    rateUnit: "টাকা / $1",
+    calcTitle: "🧮 কাস্টম ডলার বাজেট ক্যালকুলেটর",
+    calcLabel: "কত ডলার বুস্ট করবেন ($):",
+    totalLabel: "সর্বমোট বিল:",
+    currency: "টাকা",
+    customOrderBtn: "কাস্টম অর্ডার করুন",
+    pkgSectionTitle: "🔥 জনপ্রিয় বুস্টিং প্যাকেজসমূহ",
+    loadingText: "প্যাকেজ লোড হচ্ছে...",
+    payInstruction: "নিচের নম্বরে Send Money / Cash In করুন:",
+    copyBtn: "কপি",
+    labelName: "আপনার নাম *",
+    labelLink: "ফেসবুক পেজ বা পোস্টের লিংক *",
+    labelPhone: "আপনার মোবাইল / WhatsApp নম্বর *",
+    labelPayTiming: "পেমেন্টের সময় ও নিয়ম সিলেক্ট করুন *",
+    labelPayMethod: "পেমেন্ট মেথড *",
+    labelTrx: "যে নম্বর থেকে টাকা পাঠিয়েছেন বা TrxID *",
+    confirmOrderBtn: "অর্ডার কনফার্ম করুন",
+    cancelBtn: "বাতিল করুন",
+    timing1: "কাজ শুরুর আগেই পেমেন্ট সম্পন্ন করেছি (Paid Before)",
+    timing2: "কাজ সম্পূর্ণ হওয়ার পরে পেমেন্ট করব (Pay After Work)",
+    toastCopy: "✅ নম্বর কপি হয়েছে: ",
+    toastSuccess: "🎉 অর্ডার সফলভাবে জমা হয়েছে!",
+    submitting: "সাবমিট হচ্ছে..."
   },
-  pkg2: {
-    title_bn: "বিজনেস গ্রোথ ($১০)",
-    title_en: "Business Growth ($10)",
-    desc_bn: "টার্গেটেড কাস্টমার এবং ইনবক্স মেসেজ বা সেল বৃদ্ধির জন্য প্রফেশনাল ক্যাম্পেইন।",
-    desc_en: "Professional campaign for targeted customers and higher inbox messages/sales.",
-    dollars: 10,
-    discount: 100,
-    img: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&q=80"
-  },
-  pkg3: {
-    title_bn: "প্রো ভাইরাল প্যাক ($২০)",
-    title_en: "Pro Viral Pack ($20)",
-    desc_bn: "বড় বাজেটের অ্যাড রান এবং সর্বোচ্চ সেলস কনভার্সনের জন্য ফুল সাপোর্ট।",
-    desc_en: "Full support for large budget ad campaigns and maximum sales conversion.",
-    dollars: 20,
-    discount: 200,
-    img: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&q=80"
+  en: {
+    tagline: "Trusted Facebook Boosting & Digital Marketing Service",
+    rateLabel: "Today's Dollar Rate:",
+    rateUnit: "BDT / $1",
+    calcTitle: "🧮 Custom Dollar Budget Calculator",
+    calcLabel: "Enter Dollar Amount ($):",
+    totalLabel: "Total Bill:",
+    currency: "BDT",
+    customOrderBtn: "Order Custom Boost",
+    pkgSectionTitle: "🔥 Popular Boosting Packages",
+    loadingText: "Loading packages...",
+    payInstruction: "Send Money to the number below:",
+    copyBtn: "Copy",
+    labelName: "Your Name *",
+    labelLink: "Facebook Page or Post Link *",
+    labelPhone: "Your Mobile / WhatsApp Number *",
+    labelPayTiming: "Select Payment Time *",
+    labelPayMethod: "Payment Method *",
+    labelTrx: "Sender Number or TrxID *",
+    confirmOrderBtn: "Confirm Order",
+    cancelBtn: "Cancel",
+    timing1: "Paid Before Work",
+    timing2: "Pay After Work",
+    toastCopy: "✅ Number copied: ",
+    toastSuccess: "🎉 Order submitted successfully!",
+    submitting: "Submitting..."
   }
 };
 
@@ -49,9 +76,31 @@ function toggleLanguage() {
   currentLang = currentLang === "bn" ? "en" : "bn";
   document.getElementById("langToggle").innerText = currentLang === "bn" ? "English" : "বাংলা";
 
-  document.querySelectorAll("[data-bn]").forEach(el => {
-    el.innerText = el.getAttribute(`data-${currentLang}`);
-  });
+  const t = translations[currentLang];
+  document.getElementById("siteTagline").innerText = t.tagline;
+  document.getElementById("rateLabel").innerText = t.rateLabel;
+  document.getElementById("rateUnit").innerText = t.rateUnit;
+  document.getElementById("calcTitle").innerText = t.calcTitle;
+  document.getElementById("calcLabel").innerText = t.calcLabel;
+  document.getElementById("totalLabel").innerText = t.totalLabel;
+  document.getElementById("currencyLabel").innerText = t.currency;
+  document.getElementById("customOrderBtn").innerText = t.customOrderBtn;
+  document.getElementById("pkgSectionTitle").innerText = t.pkgSectionTitle;
+  document.getElementById("loadingText").innerText = t.loadingText;
+  document.getElementById("payInstruction").innerText = t.payInstruction;
+  document.getElementById("copyBtnText").innerText = t.copyBtn;
+  document.getElementById("labelName").innerText = t.labelName;
+  document.getElementById("labelLink").innerText = t.labelLink;
+  document.getElementById("labelPhone").innerText = t.labelPhone;
+  document.getElementById("labelPayTiming").innerText = t.labelPayTiming;
+  document.getElementById("labelPayMethod").innerText = t.labelPayMethod;
+  document.getElementById("labelTrx").innerText = t.labelTrx;
+  document.getElementById("submitOrderBtn").innerText = t.confirmOrderBtn;
+  document.getElementById("cancelBtnText").innerText = t.cancelBtn;
+
+  const timingSelect = document.getElementById("paymentTiming");
+  timingSelect.options[0].text = t.timing1;
+  timingSelect.options[1].text = t.timing2;
 
   renderPackages();
 }
@@ -63,11 +112,6 @@ async function loadSiteData() {
     if (settings) {
       if (settings.dollarRate) dollarRate = Number(settings.dollarRate);
       if (settings.paymentNumber) paymentNumber = settings.paymentNumber;
-    } else {
-      await fetch(`${DB_URL}/settings.json`, {
-        method: "PUT",
-        body: JSON.stringify({ dollarRate: 130, paymentNumber: "01815395746" })
-      });
     }
 
     document.getElementById("liveRate").innerText = dollarRate;
@@ -78,12 +122,6 @@ async function loadSiteData() {
     const pkgs = await pkgRes.json();
     if (pkgs) {
       packagesList = Object.keys(pkgs).map(key => ({ id: key, ...pkgs[key] }));
-    } else {
-      await fetch(`${DB_URL}/packages.json`, {
-        method: "PUT",
-        body: JSON.stringify(defaultPackages)
-      });
-      packagesList = Object.keys(defaultPackages).map(key => ({ id: key, ...defaultPackages[key] }));
     }
 
     renderPackages();
@@ -108,7 +146,7 @@ function renderPackages() {
 
     const title = currentLang === "bn" ? pkg.title_bn : pkg.title_en;
     const desc = currentLang === "bn" ? pkg.desc_bn : pkg.desc_en;
-    const currency = currentLang === "bn" ? "টাকা" : "BDT";
+    const currency = translations[currentLang].currency;
     const btnText = currentLang === "bn" ? "অর্ডার করুন" : "Order Now";
     const badgeText = currentLang === "bn" ? `$${pkg.dollars} অ্যাড বাজেট` : `$${pkg.dollars} Ad Budget`;
     const discText = currentLang === "bn" ? `(${discount} টাকা ছাড়!)` : `(${discount} BDT OFF!)`;
@@ -125,7 +163,7 @@ function renderPackages() {
             <span class="new-price">${finalPrice} ${currency}</span>
             ${discount > 0 ? `<span class="discount-tag">${discText}</span>` : ""}
           </div>
-          <button class="btn-primary" onclick="openOrderModal('${title.replace(/'/g, "\\'")}', ${finalPrice}, ${pkg.dollars})">${btnText}</button>
+          <button class="btn-primary" onclick="openOrderModal('${pkg.title_bn.replace(/'/g, "\\'")}', '${pkg.title_en.replace(/'/g, "\\'")}', ${finalPrice}, ${pkg.dollars})">${btnText}</button>
         </div>
       </div>
     `;
@@ -139,14 +177,16 @@ function orderCustomDollar() {
     return;
   }
   const total = Math.round(d * dollarRate);
-  const title = currentLang === "bn" ? `কাস্টম বুস্ট ($${d})` : `Custom Boost ($${d})`;
-  openOrderModal(title, total, d);
+  const titleBn = `কাস্টম বুস্ট ($${d})`;
+  const titleEn = `Custom Boost ($${d})`;
+  openOrderModal(titleBn, titleEn, total, d);
 }
 
-function openOrderModal(title, price, dollars) {
-  activeOrder = { title, price, dollars };
+function openOrderModal(titleBn, titleEn, price, dollars) {
+  const title = currentLang === "bn" ? titleBn : titleEn;
+  activeOrder = { titleBn, titleEn, price, dollars };
   document.getElementById("modalPkgName").innerText = title;
-  const currency = currentLang === "bn" ? "টাকা" : "BDT";
+  const currency = translations[currentLang].currency;
   const label = currentLang === "bn" ? "সর্বমোট পেমেন্ট:" : "Total Payment:";
   document.getElementById("modalPkgPrice").innerText = `${label} ${price} ${currency}`;
   document.getElementById("orderModal").style.display = "flex";
@@ -158,17 +198,17 @@ function closeOrderModal() {
 
 function copyPayNumber() {
   navigator.clipboard.writeText(paymentNumber);
-  showToast(currentLang === "bn" ? "✅ নম্বর কপি হয়েছে: " + paymentNumber : "✅ Number copied: " + paymentNumber);
+  showToast(translations[currentLang].toastCopy + paymentNumber);
 }
 
 async function submitOrder(e) {
   e.preventDefault();
   const btn = document.getElementById("submitOrderBtn");
   btn.disabled = true;
-  btn.innerText = currentLang === "bn" ? "সাবমিট হচ্ছে..." : "Submitting...";
+  btn.innerText = translations[currentLang].submitting;
 
   const orderData = {
-    package: activeOrder.title,
+    package: currentLang === "bn" ? activeOrder.titleBn : activeOrder.titleEn,
     dollars: activeOrder.dollars,
     amountTaka: activeOrder.price,
     name: document.getElementById("custName").value.trim(),
@@ -187,9 +227,10 @@ async function submitOrder(e) {
       body: JSON.stringify(orderData)
     });
 
+    const currencyText = currentLang === "bn" ? "টাকা" : "BDT";
     const tgMessage = `🔔 *নতুন অর্ডার এসেছে! (Boostify Digital)*\n\n` +
       `📦 *প্যাকেজ:* ${orderData.package}\n` +
-      `💰 *মোট বিল:* ${orderData.amountTaka} টাকা\n` +
+      `💰 *মোট বিল:* ${orderData.amountTaka} ${currencyText}\n` +
       `👤 *কাস্টমার নাম:* ${orderData.name}\n` +
       `📱 *ফোন:* ${orderData.phone}\n` +
       `🔗 *ফেসবুক লিংক:* ${orderData.fbLink}\n` +
@@ -209,12 +250,12 @@ async function submitOrder(e) {
 
     closeOrderModal();
     document.getElementById("orderForm").reset();
-    showToast(currentLang === "bn" ? "🎉 অর্ডার সফলভাবে জমা হয়েছে!" : "🎉 Order submitted successfully!");
+    showToast(translations[currentLang].toastSuccess);
   } catch (err) {
     alert("Error submitting order. Please try again.");
   } finally {
     btn.disabled = false;
-    btn.innerText = currentLang === "bn" ? "অর্ডার কনফার্ম করুন" : "Confirm Order";
+    btn.innerText = translations[currentLang].confirmOrderBtn;
   }
 }
 

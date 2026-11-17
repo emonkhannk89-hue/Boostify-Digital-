@@ -82,7 +82,8 @@
       line-height: 1.5;
     }
     .order-card a { color: #60a5fa; }
-    .preview-img { width: 70px; height: 50px; object-fit: cover; border-radius: 5px; margin-top: 5px; border: 1px solid #4b5563; }
+    .preview-img { width: 80px; height: 55px; object-fit: cover; border-radius: 5px; margin-top: 5px; border: 1px solid #4b5563; }
+    .img-hint { font-size: 11px; color: #9ca3af; margin-top: 2px; }
   </style>
 </head>
 <body>
@@ -126,6 +127,7 @@
       <!-- Packages Control -->
       <div class="card">
         <h3>📦 প্যাকেজ, ছবি আপলোড ও ডিসকাউন্ট কন্ট্রোল</h3>
+        <p style="font-size: 12px; color: #fbbf24; margin-bottom: 10px;">💡 ছবির সাইজ টিপস: সুন্দর দেখানোর জন্য **600 × 400 পিক্সেল** (অথবা ল্যান্ডস্কেপ) সাইজের ছবি আপলোড করুন।</p>
         <div id="adminPkgContainer">লোড হচ্ছে...</div>
         <button class="btn btn-blue" onclick="addNewPackage()">+ নতুন প্যাকেজ যোগ করুন</button>
       </div>
@@ -218,7 +220,7 @@
               <label>ফটো পরিবর্তন করুন (ফাইল সিলেক্ট করুন):</label>
               <input type="file" id="file_${key}" accept="image/*" onchange="convertImage(event, '${key}')" />
               <input type="hidden" id="img_${key}" value="${p.img || ''}" />
-              <br/>
+              <div class="img-hint">রেকমেন্ডেড সাইজ: 600x400 পিক্সেল</div>
               <img id="prev_${key}" src="${p.img || ''}" class="preview-img" alt="Preview" />
             </div>
             <div class="row-2">
@@ -253,7 +255,6 @@
       }
     }
 
-    // মোবাইল থেকে ছবি সিলেক্ট করার সাথে সাথে প্রসেস করার ফাংশন
     function convertImage(event, key) {
       const file = event.target.files[0];
       if (!file) return;
@@ -292,7 +293,7 @@
         method: "PUT",
         body: JSON.stringify(data)
       });
-      alert("✅ প্যাকেজ ও ছবি সফলভাবে আপডেট হয়েছে! কাস্টমার সাইটে এখন এটি সাথে সাথে দেখা যাবে।");
+      alert("✅ প্যাকেজ ও ছবি সফলভাবে আপডেট হয়েছে! কাস্টমার সাইটে এখন সাথে সাথে পরিবর্তন দেখা যাবে।");
     }
 
     async function addNewPackage() {
