@@ -7,40 +7,8 @@ let dollarRate = 130;
 let paymentNumber = "+8801815395746";
 let whatsappNumber = "+8801341282711";
 let packagesList = [];
+let reviewsList = [];
 let activeOrder = { titleBn: "", titleEn: "", price: 0, dollars: 0 };
-
-const reviewsData = [
-  {
-    name_bn: "তানভীর আহমেদ (ঢাকা)",
-    name_en: "Tanvir Ahmed (Dhaka)",
-    text_bn: "Boostify Digital থেকে ১০ ডলারের বুস্ট নিয়েছিলাম। আলহামদুলিল্লাহ আমার পেজে প্রচুর অর্ডার এসেছে এবং সাপোর্ট খুবই ভালো।",
-    text_en: "Took a $10 boost from Boostify Digital. Got great orders on my page and their support is super fast."
-  },
-  {
-    name_bn: "সাদিয়া ইসলাম (চট্টগ্রাম)",
-    name_en: "Sadia Islam (Chattogram)",
-    text_bn: "কাজ শেষে পেমেন্ট করার সুবিধা থাকায় নিশ্চিন্তে অর্ডার করেছিলাম। ১০ মিনিটের মধ্যেই অ্যাড চালু হয়ে গেছে!",
-    text_en: "Ordered with confidence because of the pay-after-work option. My ad went live within 10 minutes!"
-  },
-  {
-    name_bn: "মাহমুদুল হাসান (সিলেট)",
-    name_en: "Mahmudul Hasan (Sylhet)",
-    text_bn: "অন্যদের তুলনায় ডলার রেট অনেক কম এবং ডিসকাউন্টও পেয়েছি। নিয়মিত তাদের মাধ্যমেই বিজনেস প্রমোশন করি।",
-    text_en: "Much lower dollar rate compared to others plus great discounts. I regularly promote my business through them."
-  },
-  {
-    name_bn: "নুসরাত জাহান (খুলনা)",
-    name_en: "Nusrat Jahan (Khulna)",
-    text_bn: "খুবই বিশ্বস্ত সার্ভিস। টার্গেটেড অডিয়েন্স সেট করে দেওয়ার কারণে অ্যাড খরচ অনেক কমে গেছে।",
-    text_en: "Very trustworthy service. Ad cost dropped significantly because they set up proper targeted audiences."
-  },
-  {
-    name_bn: "রাকিবুল ইসলাম (রাজশাহী)",
-    name_en: "Rakibul Islam (Rajshahi)",
-    text_bn: "যেকোনো সমস্যায় হোয়াটসঅ্যাপে নক দিলেই সাথে সাথে সমাধান পাওয়া যায়। ১০/১০ রেটিং!",
-    text_en: "Instant solution on WhatsApp whenever needed. Definitely a 10/10 service!"
-  }
-];
 
 const translations = {
   bn: {
@@ -49,7 +17,8 @@ const translations = {
     rateUnit: "টাকা / $1",
     drawerTitle: "মেনু ও তথ্য",
     menuAbout: "🏢 আমাদের সম্পর্কে (About Us)",
-    menuReviews: "⭐ কাস্টমার রিভিউ (Reviews)",
+    menuReviews: "⭐ কাস্টমার রিভিউ ও মতামত",
+    menuAddReview: "✍️ আপনার রিভিউ যোগ করুন",
     menuFaq: "❓ সাধারণ জিজ্ঞাসা (FAQ)",
     menuContact: "📞 যোগাযোগ ও WhatsApp",
     menuLiveChat: "💬 লাইভ চ্যাট সাপোর্ট",
@@ -86,6 +55,7 @@ const translations = {
     payOpt4: "পরে পেমেন্ট করব (Not Paid Yet)",
     toastCopy: "✅ নম্বর কপি হয়েছে: ",
     toastSuccess: "🎉 অর্ডার সফলভাবে জমা হয়েছে!",
+    toastReviewSuccess: "⭐ আপনার রিভিউ সফলভাবে যোগ হয়েছে!",
     submitting: "সাবমিট হচ্ছে...",
     chatFabText: "লাইভ চ্যাট",
     chatBotTitle: "Boostify লাইভ সাপোর্ট",
@@ -105,6 +75,7 @@ const translations = {
     drawerTitle: "Menu & Info",
     menuAbout: "🏢 About Boostify Digital",
     menuReviews: "⭐ Customer Reviews",
+    menuAddReview: "✍️ Add Your Review",
     menuFaq: "❓ Frequently Asked Questions",
     menuContact: "📞 Contact & WhatsApp",
     menuLiveChat: "💬 Live Chat Support",
@@ -141,6 +112,7 @@ const translations = {
     payOpt4: "Not Paid Yet (Pay Later)",
     toastCopy: "✅ Number copied: ",
     toastSuccess: "🎉 Order submitted successfully!",
+    toastReviewSuccess: "⭐ Your review has been added successfully!",
     submitting: "Submitting...",
     chatFabText: "Live Chat",
     chatBotTitle: "Boostify Live Support",
@@ -186,6 +158,7 @@ function toggleLanguage() {
   document.getElementById("drawerTitle").innerText = t.drawerTitle;
   document.getElementById("menuAbout").innerText = t.menuAbout;
   document.getElementById("menuReviews").innerText = t.menuReviews;
+  document.getElementById("menuAddReview").innerText = t.menuAddReview;
   document.getElementById("menuFaq").innerText = t.menuFaq;
   document.getElementById("menuContact").innerText = t.menuContact;
   document.getElementById("menuLiveChat").innerText = t.menuLiveChat;
@@ -244,47 +217,49 @@ function openInfoModal(type) {
   if (type === "about") {
     titleEl.innerText = isBn ? "🏢 Boostify Digital সম্পর্কে" : "🏢 About Boostify Digital";
     bodyEl.innerHTML = isBn
-      ? `<p><strong>Boostify Digital</strong> বাংলাদেশের একটি বিশ্বস্ত ডিজিটাল মার্কেটিং ও ফেসবুক বুস্টিং এজেন্সি। আমরা ব্যবসায়ীদের সেলস ও রিচ বৃদ্ধির জন্য প্রফেশনাল অ্যাড ক্যাম্পেইন পরিচালনা করি।</p>
-         <ul style="margin:10px 0 0 18px;">
-           <li>অভিজ্ঞ মার্কেটিং টিম দ্বারা সঠিক অডিয়েন্স টার্গেটিং।</li>
-           <li>কাজ শুরুর আগে অথবা কাজ শেষে পেমেন্ট করার বিশেষ সুবিধা।</li>
-           <li>প্রতিটি ক্যাম্পেইনের লাইভ রিপোর্ট ও স্ক্রিনশট প্রদান।</li>
-         </ul>`
-      : `<p><strong>Boostify Digital</strong> is a trusted Facebook boosting and digital marketing agency. We run high-converting ad campaigns to grow your business sales and reach.</p>
-         <ul style="margin:10px 0 0 18px;">
-           <li>Accurate audience targeting by marketing experts.</li>
-           <li>Flexible payment options: Pay Before or After Work.</li>
-           <li>Live campaign insights and screenshot proof.</li>
-         </ul>`;
+      ? `<p><strong>Boostify Digital</strong> বাংলাদেশের একটি বিশ্বস্ত ডিজিটাল মার্কেটিং ও ফেসবুক বুস্টিং এজেন্সি। আমরা ব্যবসায়ীদের সেলস ও রিচ বৃদ্ধির জন্য প্রফেশনাল অ্যাড ক্যাম্পেইন পরিচালনা করি।</p>`
+      : `<p><strong>Boostify Digital</strong> is a trusted Facebook boosting and digital marketing agency. We run high-converting ad campaigns to grow your business.</p>`;
   } else if (type === "reviews") {
-    titleEl.innerText = isBn ? "⭐ কাস্টমার রিভিউ (৫/৫ রেটিং)" : "⭐ Customer Reviews (5/5 Rating)";
-    bodyEl.innerHTML = reviewsData.map(r => `
-      <div class="review-card" style="margin-bottom:10px; background:#f8fafc;">
-        <div class="review-stars">★★★★★</div>
-        <p>"${isBn ? r.text_bn : r.text_en}"</p>
-        <div class="review-author">— ${isBn ? r.name_bn : r.name_en}</div>
-      </div>
-    `).join("");
+    titleEl.innerText = isBn ? "⭐ কাস্টমারদের লাইভ রিভিউ" : "⭐ Live Customer Reviews";
+    bodyEl.innerHTML = reviewsList.length === 0 
+      ? `<p>${isBn ? "এখনো কোনো রিভিউ নেই। প্রথম রিভিউটি আপনি দিন!" : "No reviews yet. Be the first to add one!"}</p>`
+      : reviewsList.map(r => `
+        <div class="review-card" style="margin-bottom:10px; background:#f8fafc;">
+          <div class="review-stars">★★★★★</div>
+          <p>"${r.comment}"</p>
+          <div class="review-author">— ${r.name} (${r.location || 'Bangladesh'})</div>
+        </div>
+      `).join("");
+  } else if (type === "addReview") {
+    titleEl.innerText = isBn ? "✍️ আপনার রিভিউ জমা দিন" : "✍️ Submit Your Review";
+    bodyEl.innerHTML = `
+      <form onsubmit="submitUserReview(event)">
+        <div class="form-group">
+          <label>${isBn ? "আপনার নাম ও ঠিকানা *" : "Your Name & Location *"}</label>
+          <input type="text" id="userRevName" required placeholder="${isBn ? 'যেমন: Rahim (Dhaka)' : 'e.g., Rahim (Dhaka)'}" />
+        </div>
+        <div class="form-group">
+          <label>${isBn ? "আপনার মূল্যবান মতামত *" : "Your Feedback *"}</label>
+          <textarea id="userRevText" rows="4" required placeholder="${isBn ? 'আমাদের সার্ভিস সম্পর্কে আপনার অভিজ্ঞতা লিখুন...' : 'Write your experience...'}" style="width:100%; padding:9px; border:1px solid #dce1e7; border-radius:7px;"></textarea>
+        </div>
+        <button type="submit" class="btn-primary" style="margin-top:8px;">${isBn ? "রিভিউ সাবমিট করুন" : "Submit Review"}</button>
+      </form>
+    `;
   } else if (type === "contact") {
     titleEl.innerText = isBn ? "📞 যোগাযোগ ও WhatsApp" : "📞 Contact & WhatsApp";
     bodyEl.innerHTML = isBn
-      ? `<p>যেকোনো প্রয়োজনে বা কাস্টম ক্যাম্পেইন পরামর্শের জন্য সরাসরি আমাদের হোয়াটসঅ্যাপে মেসেজ দিন অথবা কল করুন:</p>
-         <a href="https://wa.me/${whatsappNumber.replace('+', '')}" target="_blank" class="whatsapp-btn">💬 WhatsApp-এ মেসেজ দিন (${whatsappNumber})</a>
-         <p><strong>📱 বিকাশ/নগদ নম্বর:</strong> ${paymentNumber}</p>
-         <p><strong>🌐 ফেসবুক পেজ:</strong> <a href="https://www.facebook.com/share/14u3NFxPQ77/" target="_blank" style="color:#1877f2;">Boostify Digital Official</a></p>`
-      : `<p>For any assistance or custom campaign consultation, message us directly on WhatsApp or call:</p>
-         <a href="https://wa.me/${whatsappNumber.replace('+', '')}" target="_blank" class="whatsapp-btn">💬 Chat on WhatsApp (${whatsappNumber})</a>
-         <p><strong>📱 bKash/Nagad Number:</strong> ${paymentNumber}</p>
-         <p><strong>🌐 Facebook Page:</strong> <a href="https://www.facebook.com/share/14u3NFxPQ77/" target="_blank" style="color:#1877f2;">Boostify Digital Official</a></p>`;
+      ? `<p>সরাসরি হোয়াটসঅ্যাপে মেসেজ দিন:</p>
+         <a href="https://wa.me/${whatsappNumber.replace('+', '')}" target="_blank" class="whatsapp-btn">💬 WhatsApp (${whatsappNumber})</a>
+         <p><strong>📱 বিকাশ/নগদ:</strong> ${paymentNumber}</p>`
+      : `<p>Message us directly on WhatsApp:</p>
+         <a href="https://wa.me/${whatsappNumber.replace('+', '')}" target="_blank" class="whatsapp-btn">💬 WhatsApp (${whatsappNumber})</a>
+         <p><strong>📱 bKash/Nagad:</strong> ${paymentNumber}</p>`;
   } else if (type === "faq") {
     titleEl.innerText = isBn ? "❓ সাধারণ জিজ্ঞাসা (FAQ)" : "❓ Frequently Asked Questions";
     bodyEl.innerHTML = isBn
-      ? `<p><strong>১. অ্যাড চালু হতে কত সময় লাগে?</strong><br/>অর্ডার করার ১০ থেকে ৩০ মিনিটের মধ্যেই আপনার অ্যাড রিভিউতে চলে যায় এবং চালু হয়।</p><br/>
-         <p><strong>২. পেমেন্ট কখন করতে হবে?</strong><br/>আপনি অর্ডার ফর্মে কাজ শুরুর আগে বা কাজ শেষে—যেকোনো একটি অপশন বেছে নিতে পারবেন।</p><br/>
-         <p><strong>৩. পেজের এডমিন এক্সেস কি দিতে হবে?</strong><br/>জি, ক্যাম্পেইন চালানোর জন্য আমাদের অ্যাড অ্যাকাউন্টকে Advertiser এক্সেস দিতে হবে (আমরা গাইড করে দেব)।</p>`
-      : `<p><strong>1. How long does it take to start an ad?</strong><br/>Your campaign goes live within 10 to 30 minutes after order confirmation.</p><br/>
-         <p><strong>2. When do I need to pay?</strong><br/>You can choose either Pay Before Work or Pay After Work in the order form.</p><br/>
-         <p><strong>3. Do I need to share page access?</strong><br/>Yes, Advertiser access is needed to run the campaign (we will guide you step-by-step).</p>`;
+      ? `<p><strong>১. অ্যাড চালু হতে কত সময় লাগে?</strong><br/>১০ থেকে ৩০ মিনিটের মধ্যে চালু হয়।</p><br/>
+         <p><strong>২. পেমেন্ট কখন করতে হবে?</strong><br/>কাজ শুরুর আগে বা কাজ শেষে পেমেন্ট করতে পারবেন।</p>`
+      : `<p><strong>1. Activation time?</strong><br/>Starts within 10 to 30 mins.</p>`;
   }
 
   modal.style.display = "flex";
@@ -294,14 +269,38 @@ function closeInfoModal() {
   document.getElementById("infoModal").style.display = "none";
 }
 
+// ইউজার রিভিউ সাবমিট করে ফায়ারবেসে সেভ করার ফাংশন
+async function submitUserReview(e) {
+  e.preventDefault();
+  const name = document.getElementById("userRevName").value.trim();
+  const comment = document.getElementById("userRevText").value.trim();
+
+  const newReview = { name, comment, time: new Date().toLocaleDateString() };
+
+  try {
+    await fetch(`${DB_URL}/reviews.json`, {
+      method: "POST",
+      body: JSON.stringify(newReview)
+    });
+    closeInfoModal();
+    showToast(translations[currentLang].toastReviewSuccess);
+    loadSiteData();
+  } catch (err) {
+    alert("Error submitting review.");
+  }
+}
+
 function renderHomeReviews() {
   const container = document.getElementById("homeReviewsGrid");
-  const isBn = currentLang === "bn";
-  container.innerHTML = reviewsData.slice(0, 3).map(r => `
+  if (reviewsList.length === 0) {
+    container.innerHTML = `<p>${currentLang === 'bn' ? 'কোনো রিভিউ পাওয়া যায়নি।' : 'No reviews found.'}</p>`;
+    return;
+  }
+  container.innerHTML = reviewsList.slice(0, 3).map(r => `
     <div class="review-card">
       <div class="review-stars">★★★★★</div>
-      <p>"${isBn ? r.text_bn : r.text_en}"</p>
-      <div class="review-author">— ${isBn ? r.name_bn : r.name_en}</div>
+      <p>"${r.comment}"</p>
+      <div class="review-author">— ${r.name}</div>
     </div>
   `).join("");
 }
@@ -338,24 +337,16 @@ function handleQuickChat(topic) {
 
   if (topic === "rate") {
     userText = t.qRate;
-    botReply = isBn
-      ? `আজকের ডলার রেট মাত্র ${dollarRate} টাকা। এছাড়া আমাদের প্যাকেজগুলোতে বিশেষ ডিসকাউন্ট চলছে!`
-      : `Today's dollar rate is ${dollarRate} BDT per $1. Special discounts are also active on packages!`;
+    botReply = isBn ? `আজকের ডলার রেট ${dollarRate} টাকা।` : `Today's dollar rate is ${dollarRate} BDT.`;
   } else if (topic === "pay") {
     userText = t.qPay;
-    botReply = isBn
-      ? `আপনি bKash, Nagad বা Rocket (${paymentNumber})-এ পেমেন্ট করতে পারবেন। কাজ শেষে পেমেন্ট করার সুযোগও রয়েছে!`
-      : `You can pay via bKash, Nagad, or Rocket (${paymentNumber}). Pay After Work option is also available!`;
+    botReply = isBn ? `বিকাশ/নগদ নম্বর: ${paymentNumber}।` : `bKash/Nagad: ${paymentNumber}.`;
   } else if (topic === "time") {
     userText = t.qTime;
-    botReply = isBn
-      ? `অর্ডার কনফার্ম করার ১০ থেকে ৩০ মিনিটের মধ্যেই আপনার ফেসবুক অ্যাড চালু হয়ে যাবে ইনশাআল্লাহ।`
-      : `Your Facebook ad will be activated within 10 to 30 minutes after order confirmation.`;
+    botReply = isBn ? `অর্ডার করার ১০-৩০ মিনিটের মধ্যে অ্যাড চালু হয়।` : `Ads go live in 10-30 mins.`;
   } else if (topic === "wa") {
     userText = t.qWa;
-    botReply = isBn
-      ? `আমাদের WhatsApp নম্বর: ${whatsappNumber}। সরাসরি কথা বলতে <a href="https://wa.me/${whatsappNumber.replace('+', '')}" target="_blank" style="color:#1877f2;font-weight:bold;">এখানে ক্লিক করুন</a>।`
-      : `Our WhatsApp number: ${whatsappNumber}. <a href="https://wa.me/${whatsappNumber.replace('+', '')}" target="_blank" style="color:#1877f2;font-weight:bold;">Click here to chat</a>.`;
+    botReply = `WhatsApp: ${whatsappNumber}`;
   }
 
   appendChat(userText, botReply);
@@ -367,26 +358,7 @@ function sendChatMessage(e) {
   const text = input.value.trim();
   if (!text) return;
   input.value = "";
-
-  const isBn = currentLang === "bn";
-  const lower = text.toLowerCase();
-  let reply = "";
-
-  if (lower.includes("rate") || lower.includes("রেট") || lower.includes("কত") || lower.includes("price") || lower.includes("দাম")) {
-    reply = isBn
-      ? `বর্তমান ডলার রেট ${dollarRate} টাকা। ক্যালকুলেটরে ডলার বসিয়ে সরাসরি অর্ডার করতে পারেন।`
-      : `Current dollar rate is ${dollarRate} BDT. You can use the calculator above to order.`;
-  } else if (lower.includes("bkash") || lower.includes("nagad") || lower.includes("pay") || lower.includes("পেমেন্ট") || lower.includes("টাকা")) {
-    reply = isBn
-      ? `আমাদের বিকাশ/নগদ নম্বর: ${paymentNumber}। অর্ডার ফর্মে কাজ শেষে পেমেন্টের অপশনও পাবেন।`
-      : `Our bKash/Nagad number is ${paymentNumber}. Pay-after-work option is available in the order form.`;
-  } else {
-    reply = isBn
-      ? `ধন্যবাদ! আপনার মেসেজটি আমরা পেয়েছি। দ্রুত সরাসরি সাপোর্টের জন্য আমাদের WhatsApp (${whatsappNumber})-এ নক দিন।`
-      : `Thank you! For instant human support, please message us on WhatsApp: ${whatsappNumber}.`;
-  }
-
-  appendChat(text, reply);
+  appendChat(text, currentLang === "bn" ? "ধন্যবাদ! দ্রুত সাপোর্টের জন্য WhatsApp-এ নক দিন।" : "Thanks! Message us on WhatsApp for fast support.");
 }
 
 function appendChat(userMsg, botMsg) {
@@ -417,6 +389,12 @@ async function loadSiteData() {
     const pkgs = await pkgRes.json();
     if (pkgs) {
       packagesList = Object.keys(pkgs).map(key => ({ id: key, ...pkgs[key] }));
+    }
+
+    const revRes = await fetch(`${DB_URL}/reviews.json`);
+    const revs = await revRes.json();
+    if (revs) {
+      reviewsList = Object.keys(revs).map(key => ({ id: key, ...revs[key] })).reverse();
     }
 
     renderPackages();
@@ -474,9 +452,7 @@ function orderCustomDollar() {
     return;
   }
   const total = Math.round(d * dollarRate);
-  const titleBn = `কাস্টম বুস্ট ($${d})`;
-  const titleEn = `Custom Boost ($${d})`;
-  openOrderModal(titleBn, titleEn, total, d);
+  openOrderModal(`কাস্টম বুস্ট ($${d})`, `Custom Boost ($${d})`, total, d);
 }
 
 function openOrderModal(titleBn, titleEn, price, dollars) {
@@ -549,7 +525,7 @@ async function submitOrder(e) {
     document.getElementById("orderForm").reset();
     showToast(translations[currentLang].toastSuccess);
   } catch (err) {
-    alert(currentLang === "bn" ? "অর্ডার সাবমিট করতে সমস্যা হয়েছে। আবার চেষ্টা করুন।" : "Error submitting order. Please try again.");
+    alert("Error submitting order.");
   } finally {
     btn.disabled = false;
     btn.innerText = translations[currentLang].confirmOrderBtn;

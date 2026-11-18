@@ -67,12 +67,13 @@
     .btn-blue { background: #2563eb; color: #fff; }
     .btn-green { background: #16a34a; color: #fff; }
     .btn-red { background: #dc2626; color: #fff; }
-    .pkg-box {
+    .pkg-box, .review-admin-box {
       background: #111827;
       padding: 12px;
       border-radius: 8px;
       border: 1px solid #374151;
       margin-bottom: 12px;
+      font-size: 13.5kpx;
     }
     .order-card {
       background: #111827;
@@ -119,7 +120,7 @@
             <input type="number" id="setRate" />
           </div>
           <div class="form-group">
-            <label>bKash / Nagad /Rocket নম্বর:</label>
+            <label>bKash / Nagad নম্বর:</label>
             <input type="text" id="setPayNum" />
           </div>
           <div class="form-group">
@@ -133,9 +134,14 @@
       <!-- Packages Control -->
       <div class="card">
         <h3>📦 প্যাকেজ, ছবি আপলোড ও ডিসকাউন্ট কন্ট্রোল</h3>
-        <p style="font-size: 12px; color: #fbbf24; margin-bottom: 10px;">💡 ছবির সাইজ টিপস: সুন্দর দেখানোর জন্য <strong>600 × 400 পিক্সেল</strong> সাইজের ছবি আপলোড করুন।</p>
         <div id="adminPkgContainer">লোড হচ্ছে...</div>
         <button class="btn btn-blue" onclick="addNewPackage()">+ নতুন প্যাকেজ যোগ করুন</button>
+      </div>
+
+      <!-- Reviews Management -->
+      <div class="card">
+        <h3>⭐ কাস্টমার রিভিউ ম্যানেজমেন্ট</h3>
+        <div id="adminReviewContainer">রিভিউ লোড হচ্ছে...</div>
       </div>
 
       <!-- Orders List -->
@@ -148,7 +154,7 @@
 
   <script>
     const DB_URL = "https://boostify-digital-8ec2d-default-rtdb.firebaseio.com";
-    const ADMIN_PASSWORD = "admin1234"; 
+    const ADMIN_PASSWORD = "Bosstify1234@#"; // আপডেট করা নতুন পাসওয়ার্ড
 
     function checkLogin() {
       const pass = document.getElementById("adminPass").value;
@@ -194,40 +200,21 @@
         pkgDiv.innerHTML += `
           <div class="pkg-box">
             <div class="row-2">
-              <div class="form-group">
-                <label>প্যাকেজ নাম (বাংলা):</label>
-                <input type="text" id="bn_title_${key}" value="${p.title_bn || ''}" />
-              </div>
-              <div class="form-group">
-                <label>Package Name (English):</label>
-                <input type="text" id="en_title_${key}" value="${p.title_en || ''}" />
-              </div>
+              <div class="form-group"><label>বাংলা নাম:</label><input type="text" id="bn_title_${key}" value="${p.title_bn || ''}" /></div>
+              <div class="form-group"><label>English Name:</label><input type="text" id="en_title_${key}" value="${p.title_en || ''}" /></div>
             </div>
             <div class="row-2">
-              <div class="form-group">
-                <label>বিবরণ (বাংলা):</label>
-                <input type="text" id="bn_desc_${key}" value="${p.desc_bn || ''}" />
-              </div>
-              <div class="form-group">
-                <label>Description (English):</label>
-                <input type="text" id="en_desc_${key}" value="${p.desc_en || ''}" />
-              </div>
+              <div class="form-group"><label>বাংলা বিবরণ:</label><input type="text" id="bn_desc_${key}" value="${p.desc_bn || ''}" /></div>
+              <div class="form-group"><label>English Description:</label><input type="text" id="en_desc_${key}" value="${p.desc_en || ''}" /></div>
             </div>
             <div class="row-2">
-              <div class="form-group">
-                <label>ডলার ($):</label>
-                <input type="number" id="dol_${key}" value="${p.dollars || 0}" />
-              </div>
-              <div class="form-group">
-                <label>ডিসকাউন্ট / মাইনাস (টাকা):</label>
-                <input type="number" id="disc_${key}" value="${p.discount || 0}" />
-              </div>
+              <div class="form-group"><label>ডলার ($):</label><input type="number" id="dol_${key}" value="${p.dollars || 0}" /></div>
+              <div class="form-group"><label>ডিসকাউন্ট (টাকা):</label><input type="number" id="disc_${key}" value="${p.discount || 0}" /></div>
             </div>
             <div class="form-group">
-              <label>ফটো পরিবর্তন করুন (ফাইল সিলেক্ট করুন):</label>
+              <label>ফটো পরিবর্তন করুন:</label>
               <input type="file" id="file_${key}" accept="image/*" onchange="convertImage(event, '${key}')" />
               <input type="hidden" id="img_${key}" value="${p.img || ''}" />
-              <div class="img-hint">রেকমেন্ডেড সাইজ: 600x400 পিক্সেল</div>
               <img id="prev_${key}" src="${p.img || ''}" class="preview-img" alt="Preview" />
             </div>
             <div class="row-2">
@@ -237,6 +224,26 @@
           </div>
         `;
       });
+
+      // রিভিউ ম্যানেজমেন্ট লোড
+      const revRes = await fetch(`${DB_URL}/reviews.json`);
+      const revs = await revRes.json() || {};
+      const revKeys = Object.keys(revs).reverse();
+      const revDiv = document.getElementById("adminReviewContainer");
+      if (revKeys.length === 0) {
+        revDiv.innerHTML = "<p>কোনো রিভিউ জমা হয়নি।</p>";
+      } else {
+        revDiv.innerHTML = revKeys.map(k => {
+          const r = revs[k];
+          return `
+            <div class="review-admin-box">
+              <strong>${r.name}</strong> (${r.time})<br/>
+              <p style="color:#d1d5db; margin:4px 0;">"${r.comment}"</p>
+              <button class="btn btn-red" style="width:auto; padding:4px 10px;" onclick="deleteReview('${k}')">রিভিউ ডিলিট করুন</button>
+            </div>
+          `;
+        }).join("");
+      }
 
       const ordRes = await fetch(`${DB_URL}/orders.json`);
       const orders = await ordRes.json() || {};
@@ -266,13 +273,11 @@
     function convertImage(event, key) {
       const file = event.target.files[0];
       if (!file) return;
-
       const reader = new FileReader();
       reader.onload = function(e) {
-        const base64String = e.target.result;
-        document.getElementById(`img_${key}`).value = base64String;
-        document.getElementById(`prev_${key}`).src = base64String;
-        alert("✅ ছবি সিলেক্ট করা হয়েছে! এখন নিচে 'সেভ করুন' বাটনে ক্লিক করুন।");
+        document.getElementById(`img_${key}`).value = e.target.result;
+        document.getElementById(`prev_${key}`).src = e.target.result;
+        alert("✅ ছবি সিলেক্ট হয়েছে! নিচে 'সেভ করুন' বাটনে ক্লিক করুন।");
       };
       reader.readAsDataURL(file);
     }
@@ -302,15 +307,15 @@
         method: "PUT",
         body: JSON.stringify(data)
       });
-      alert("✅ প্যাকেজ ও ছবি সফলভাবে আপডেট হয়েছে!");
+      alert("✅ প্যাকেজ আপডেট হয়েছে!");
     }
 
     async function addNewPackage() {
       const newPkg = {
         title_bn: "নতুন প্যাকেজ ($১৫)",
         title_en: "New Package ($15)",
-        desc_bn: "প্যাকেজের বিবরণ লিখুন",
-        desc_en: "Write package description",
+        desc_bn: "বিবরণ লিখুন",
+        desc_en: "Write description",
         dollars: 15,
         discount: 0,
         img: "https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=600&q=80"
@@ -323,14 +328,21 @@
     }
 
     async function deletePackage(key) {
-      if (confirm("আপনি কি এই প্যাকেজটি ডিলিট করতে চান?")) {
+      if (confirm("প্যাকেজটি ডিলিট করতে চান?")) {
         await fetch(`${DB_URL}/packages/${key}.json`, { method: "DELETE" });
         loadAdminData();
       }
     }
 
+    async function deleteReview(key) {
+      if (confirm("রিভিউটি ডিলিট করতে চান?")) {
+        await fetch(`${DB_URL}/reviews/${key}.json`, { method: "DELETE" });
+        loadAdminData();
+      }
+    }
+
     async function deleteOrder(key) {
-      if (confirm("আপনি কি এই অর্ডারটি ডিলিট করতে চান?")) {
+      if (confirm("অর্ডারটি ডিলিট করতে চান?")) {
         await fetch(`${DB_URL}/orders/${key}.json`, { method: "DELETE" });
         loadAdminData();
       }
