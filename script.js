@@ -222,12 +222,12 @@ function openInfoModal(type) {
   } else if (type === "reviews") {
     titleEl.innerText = isBn ? "⭐ কাস্টমারদের লাইভ রিভিউ" : "⭐ Live Customer Reviews";
     bodyEl.innerHTML = reviewsList.length === 0 
-      ? `<p>${isBn ? "এখনো কোনো রিভিউ নেই। প্রথম রিভিউটি আপনি দিন!" : "No reviews yet. Be the first to add one!"}</p>`
+      ? `<p>${isBn ? "এখনো কোনো রিভিউ নেই।" : "No reviews yet."}</p>`
       : reviewsList.map(r => `
         <div class="review-card" style="margin-bottom:10px; background:#f8fafc;">
           <div class="review-stars">★★★★★</div>
           <p>"${r.comment}"</p>
-          <div class="review-author">— ${r.name} (${r.location || 'Bangladesh'})</div>
+          <div class="review-author">— ${r.name}</div>
         </div>
       `).join("");
   } else if (type === "addReview") {
@@ -240,7 +240,7 @@ function openInfoModal(type) {
         </div>
         <div class="form-group">
           <label>${isBn ? "আপনার মূল্যবান মতামত *" : "Your Feedback *"}</label>
-          <textarea id="userRevText" rows="4" required placeholder="${isBn ? 'আমাদের সার্ভিস সম্পর্কে আপনার অভিজ্ঞতা লিখুন...' : 'Write your experience...'}" style="width:100%; padding:9px; border:1px solid #dce1e7; border-radius:7px;"></textarea>
+          <textarea id="userRevText" rows="4" required placeholder="${isBn ? 'অভিজ্ঞতা লিখুন...' : 'Write your experience...'}" style="width:100%; padding:9px; border:1px solid #dce1e7; border-radius:7px;"></textarea>
         </div>
         <button type="submit" class="btn-primary" style="margin-top:8px;">${isBn ? "রিভিউ সাবমিট করুন" : "Submit Review"}</button>
       </form>
@@ -269,12 +269,10 @@ function closeInfoModal() {
   document.getElementById("infoModal").style.display = "none";
 }
 
-// ইউজার রিভিউ সাবমিট করে ফায়ারবেসে সেভ করার ফাংশন
 async function submitUserReview(e) {
   e.preventDefault();
   const name = document.getElementById("userRevName").value.trim();
   const comment = document.getElementById("userRevText").value.trim();
-
   const newReview = { name, comment, time: new Date().toLocaleDateString() };
 
   try {
@@ -367,8 +365,7 @@ function appendChat(userMsg, botMsg) {
   setTimeout(() => {
     msgBox.innerHTML += `<div class="msg-bot">${botMsg}</div>`;
     msgBox.scrollTop = msgBox.scrollHeight;
-  }, 300);
-  msgBox.scrollTop = msgBox.scrollHeight;
+  }, 200);
 }
 
 async function loadSiteData() {

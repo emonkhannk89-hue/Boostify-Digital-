@@ -73,7 +73,7 @@
       border-radius: 8px;
       border: 1px solid #374151;
       margin-bottom: 12px;
-      font-size: 13.5kpx;
+      font-size: 13.5px;
     }
     .order-card {
       background: #111827;
@@ -111,7 +111,6 @@
     </div>
 
     <div class="container">
-      <!-- Global Settings -->
       <div class="card">
         <h3>💵 ডলার রেট, পেমেন্ট ও WhatsApp নম্বর কন্ট্রোল</h3>
         <div class="row-3">
@@ -131,20 +130,17 @@
         <button class="btn btn-green" onclick="saveSettings()">সেটিংস আপডেট করুন</button>
       </div>
 
-      <!-- Packages Control -->
       <div class="card">
         <h3>📦 প্যাকেজ, ছবি আপলোড ও ডিসকাউন্ট কন্ট্রোল</h3>
         <div id="adminPkgContainer">লোড হচ্ছে...</div>
         <button class="btn btn-blue" onclick="addNewPackage()">+ নতুন প্যাকেজ যোগ করুন</button>
       </div>
 
-      <!-- Reviews Management -->
       <div class="card">
         <h3>⭐ কাস্টমার রিভিউ ম্যানেজমেন্ট</h3>
         <div id="adminReviewContainer">রিভিউ লোড হচ্ছে...</div>
       </div>
 
-      <!-- Orders List -->
       <div class="card">
         <h3>📩 কাস্টমারদের অর্ডার লিস্ট (<span id="ordCount">0</span>)</h3>
         <div id="adminOrderContainer">অর্ডার লোড হচ্ছে...</div>
@@ -154,28 +150,34 @@
 
   <script>
     const DB_URL = "https://boostify-digital-8ec2d-default-rtdb.firebaseio.com";
-    const ADMIN_PASSWORD = "Bosstify1234@#"; // আপডেট করা নতুন পাসওয়ার্ড
+    const ADMIN_PASSWORD = "Bosstify1234@#"; 
+
+    // প্রতিবার পেজ ওপেন বা সার্চ করলে বাধ্যতামূলক পাসওয়ার্ড চেকিং (সেশন সিকিউরিটি)
+    window.onload = function() {
+      if (sessionStorage.getItem("boostify_admin_logged") === "true") {
+        showDashboard();
+      } else {
+        document.getElementById("dashboard").style.display = "none";
+        document.getElementById("loginScreen").style.display = "flex";
+      }
+    };
 
     function checkLogin() {
       const pass = document.getElementById("adminPass").value;
       if (pass === ADMIN_PASSWORD) {
-        localStorage.setItem("boostify_admin", "true");
+        sessionStorage.setItem("boostify_admin_logged", "true");
         showDashboard();
       } else {
-        alert("❌ ভুল পাসওয়ার্ড!");
+        alert("❌ ভুল পাসওয়ার্ড! সঠিক পাসওয়ার্ড দিন।");
       }
     }
 
     function logout() {
-      localStorage.removeItem("boostify_admin");
+      sessionStorage.removeItem("boostify_admin_logged");
       location.reload();
     }
 
-    if (localStorage.getItem("boostify_admin") === "true") {
-      showDashboard();
-    }
-
-    async function showDashboard() {
+    function showDashboard() {
       document.getElementById("loginScreen").style.display = "none";
       document.getElementById("dashboard").style.display = "block";
       loadAdminData();
@@ -225,7 +227,6 @@
         `;
       });
 
-      // রিভিউ ম্যানেজমেন্ট লোড
       const revRes = await fetch(`${DB_URL}/reviews.json`);
       const revs = await revRes.json() || {};
       const revKeys = Object.keys(revs).reverse();
