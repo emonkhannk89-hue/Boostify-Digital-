@@ -11,7 +11,6 @@
   <!-- Top Header -->
   <header class="header">
     <div class="header-top">
-      <!-- Logo & Brand Name -->
       <div class="brand-box">
         <svg class="site-logo" viewBox="0 0 24 24" width="36" height="36" fill="currentColor">
           <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14.93v-4.93H9v-3h2V9.5c0-1.99 1.19-3.1 3-3.1.87 0 1.62.06 1.84.09v2.13h-1.26c-.97 0-1.16.46-1.16 1.14V9h2.38l-.31 3h-2.07v4.93h-2.38z"/>
@@ -21,15 +20,46 @@
           <p id="siteTagline">বিশ্বস্ত ফেসবুক বুস্টিং ও ডিজিটাল মার্কেটিং সার্ভিস</p>
         </div>
       </div>
-      <button id="langToggle" class="lang-btn" onclick="toggleLanguage()">English</button>
+
+      <div class="header-actions">
+        <button id="langToggle" class="lang-btn" onclick="toggleLanguage()">English</button>
+        <button class="menu-dots-btn" onclick="toggleDrawer()" aria-label="Menu">⋮</button>
+      </div>
     </div>
+
     <div class="rate-pill">
       <span id="rateLabel">আজকের ডলার রেট:</span>
       <strong><span id="liveRate">130</span> <span id="rateUnit">টাকা / $1</span></strong>
     </div>
   </header>
 
+  <!-- Three-Dot Side Drawer Menu -->
+  <div id="drawerOverlay" class="drawer-overlay" onclick="toggleDrawer()"></div>
+  <aside id="sideDrawer" class="side-drawer">
+    <div class="drawer-header">
+      <h3 id="drawerTitle">মেনু ও তথ্য</h3>
+      <button class="close-drawer" onclick="toggleDrawer()">✕</button>
+    </div>
+    <nav class="drawer-nav">
+      <button onclick="openInfoModal('about')" id="menuAbout">🏢 আমাদের সম্পর্কে (About Us)</button>
+      <button onclick="openInfoModal('reviews')" id="menuReviews">⭐ কাস্টমার রিভিউ (Reviews)</button>
+      <button onclick="openInfoModal('faq')" id="menuFaq">❓ সাধারণ জিজ্ঞাসা (FAQ)</button>
+      <button onclick="openInfoModal('contact')" id="menuContact">📞 যোগাযোগ ও WhatsApp</button>
+      <button onclick="openChatFromMenu()" id="menuLiveChat">💬 লাইভ চ্যাট সাপোর্ট</button>
+    </nav>
+    <div class="drawer-footer">
+      <p id="drawerSupportNote">২৪/৭ অনলাইন সাপোর্ট ও দ্রুত ক্যাম্পেইন সেটআপ</p>
+    </div>
+  </aside>
+
   <main class="container">
+    <!-- Trust Highlights Bar -->
+    <div class="trust-bar">
+      <div class="trust-item" id="trust1">⚡ ১০ মিনিটে অ্যাড চালু</div>
+      <div class="trust-item" id="trust2">🛡️ ১০০% নিরাপদ পেমেন্ট</div>
+      <div class="trust-item" id="trust3">🎯 টার্গেটেড কাস্টমার</div>
+    </div>
+
     <!-- Custom Dollar Calculator -->
     <section class="calc-card">
       <h2 id="calcTitle">🧮 কাস্টম ডলার বাজেট ক্যালকুলেটর</h2>
@@ -53,7 +83,29 @@
         <p class="loading-text" id="loadingText">প্যাকেজ লোড হচ্ছে...</p>
       </div>
     </section>
+
+    <!-- Customer Reviews Section (Prominent Placement) -->
+    <section class="reviews-section">
+      <div class="sec-head-row">
+        <h2 id="homeReviewTitle" class="section-title">⭐ সম্মানিত ক্লায়েন্টদের মতামত ও রিভিউ</h2>
+        <button class="link-btn" onclick="openInfoModal('reviews')" id="seeAllReviews">সব দেখুন →</button>
+      </div>
+      <div class="review-cards-row" id="homeReviewsGrid"></div>
+    </section>
   </main>
+
+  <!-- Professional Footer -->
+  <footer class="site-footer">
+    <div class="footer-content">
+      <h3>Boostify Digital</h3>
+      <p id="footerDesc">আপনার ব্যবসার অনলাইন প্রসার ও ফেসবুক বুস্টিংয়ের জন্য সবচেয়ে নির্ভরযোগ্য পার্টনার।</p>
+      <div class="footer-contacts">
+        <span>📱 WhatsApp: +8801341282711</span>
+        <span>💳 bKash/Nagad: +8801815395746</span>
+      </div>
+      <p class="copyright">© 2026 Boostify Digital. All Rights Reserved.</p>
+    </div>
+  </footer>
 
   <!-- Order Modal -->
   <div id="orderModal" class="modal">
@@ -64,10 +116,10 @@
       <div class="payment-info-box">
         <p id="payInstruction">নিচের নম্বরে Send Money / Cash In করুন:</p>
         <div class="pay-number-row">
-          <strong id="displayPayNumber">01815395746</strong>
+          <strong id="displayPayNumber">+8801815395746</strong>
           <button type="button" class="copy-btn" id="copyBtnText" onclick="copyPayNumber()">কপি</button>
         </div>
-        <small>(bKash / Nagad / Rocket Personal)</small>
+        <small id="payMethodNote">(bKash / Nagad / Rocket Personal)</small>
       </div>
 
       <form id="orderForm" onsubmit="submitOrder(event)">
@@ -108,6 +160,37 @@
         <button type="button" class="btn-secondary" id="cancelBtnText" onclick="closeOrderModal()">বাতিল করুন</button>
       </form>
     </div>
+  </div>
+
+  <!-- Info Modal -->
+  <div id="infoModal" class="modal">
+    <div class="modal-content info-modal-box">
+      <div class="info-modal-head">
+        <h3 id="infoModalTitle">Title</h3>
+        <button class="close-x" onclick="closeInfoModal()">✕</button>
+      </div>
+      <div id="infoModalBody" class="info-modal-body"></div>
+      <button type="button" class="btn-secondary" id="infoCloseBtn" onclick="closeInfoModal()">বন্ধ করুন</button>
+    </div>
+  </div>
+
+  <!-- Floating Live Chat Widget -->
+  <button class="chat-fab" onclick="toggleChatWidget()" id="chatFabBtn">💬 <span id="chatFabText">লাইভ চ্যাট</span></button>
+
+  <div id="chatBox" class="chat-widget">
+    <div class="chat-header">
+      <div>
+        <strong id="chatBotTitle">Boostify লাইভ সাপোর্ট</strong>
+        <small id="chatBotStatus">● অনলাইন (অটো রিপ্লাই)</small>
+      </div>
+      <button onclick="toggleChatWidget()" class="chat-close">✕</button>
+    </div>
+    <div id="chatMessages" class="chat-messages"></div>
+    <div class="chat-quick-btns" id="chatQuickBtns"></div>
+    <form class="chat-input-area" onsubmit="sendChatMessage(event)">
+      <input type="text" id="chatInput" placeholder="আপনার প্রশ্ন লিখুন..." required />
+      <button type="submit">➤</button>
+    </form>
   </div>
 
   <div id="toast" class="toast"></div>
