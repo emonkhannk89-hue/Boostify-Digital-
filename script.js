@@ -20,7 +20,7 @@ const translations = {
     menuReviews: "⭐ কাস্টমার রিভিউ ও মতামত",
     menuAddReview: "✍️ আপনার রিভিউ যোগ করুন",
     menuFaq: "❓ সাধারণ জিজ্ঞাসা (FAQ)",
-    menuContact: "📞 যোগাযোগ ও WhatsApp",
+    menuContact: "📞 যোগাযোগ ও সোশ্যাল লিংক",
     menuLiveChat: "💬 লাইভ চ্যাট সাপোর্ট",
     drawerSupportNote: "২৪/৭ অনলাইন সাপোর্ট ও দ্রুত ক্যাম্পেইন সেটআপ",
     trust1: "⚡ ১০ মিনিটে অ্যাড চালু",
@@ -66,7 +66,11 @@ const translations = {
     qPay: "পেমেন্ট নিয়ম কী?",
     qTime: "কতক্ষণে অ্যাড চালু হয়?",
     qWa: "WhatsApp নম্বর",
-    footerDesc: "আপনার ব্যবসার অনলাইন প্রসার ও ফেসবুক বুস্টিংয়ের জন্য সবচেয়ে নির্ভরযোগ্য পার্টনার।"
+    footerDesc: "আপনার ব্যবসার অনলাইন প্রসার ও ফেসবুক বুস্টিংয়ের জন্য সবচেয়ে নির্ভরযোগ্য পার্টনার।",
+    footAbout: "আমাদের সম্পর্কে",
+    footReview: "রিভিউ দিন",
+    footFaq: "সাধারণ জিজ্ঞাসা",
+    footChat: "লাইভ চ্যাট"
   },
   en: {
     tagline: "Trusted Facebook Boosting & Digital Marketing Service",
@@ -77,7 +81,7 @@ const translations = {
     menuReviews: "⭐ Customer Reviews",
     menuAddReview: "✍️ Add Your Review",
     menuFaq: "❓ Frequently Asked Questions",
-    menuContact: "📞 Contact & WhatsApp",
+    menuContact: "📞 Contact & Social Links",
     menuLiveChat: "💬 Live Chat Support",
     drawerSupportNote: "24/7 Online Support & Fast Campaign Setup",
     trust1: "⚡ Ad Live in 10 Mins",
@@ -123,7 +127,11 @@ const translations = {
     qPay: "Payment Policy?",
     qTime: "Activation Time?",
     qWa: "WhatsApp Number",
-    footerDesc: "Your most reliable partner for online business expansion and Facebook boosting."
+    footerDesc: "Your most reliable partner for online business expansion and Facebook boosting.",
+    footAbout: "About Us",
+    footReview: "Add Review",
+    footFaq: "FAQ",
+    footChat: "Live Chat"
   }
 };
 
@@ -191,6 +199,10 @@ function toggleLanguage() {
   document.getElementById("chatBotStatus").innerText = t.chatBotStatus;
   document.getElementById("chatInput").placeholder = t.chatPlaceholder;
   document.getElementById("footerDesc").innerText = t.footerDesc;
+  document.getElementById("footAbout").innerText = t.footAbout;
+  document.getElementById("footReview").innerText = t.footReview;
+  document.getElementById("footFaq").innerText = t.footFaq;
+  document.getElementById("footChat").innerText = t.footChat;
 
   const timingSelect = document.getElementById("paymentTiming");
   timingSelect.options[0].text = t.timing1;
@@ -208,7 +220,11 @@ function toggleLanguage() {
 }
 
 function openInfoModal(type) {
-  toggleDrawer();
+  const drawer = document.getElementById("sideDrawer");
+  if (drawer.classList.contains("open")) {
+    toggleDrawer();
+  }
+
   const modal = document.getElementById("infoModal");
   const titleEl = document.getElementById("infoModalTitle");
   const bodyEl = document.getElementById("infoModalBody");
@@ -246,14 +262,18 @@ function openInfoModal(type) {
       </form>
     `;
   } else if (type === "contact") {
-    titleEl.innerText = isBn ? "📞 যোগাযোগ ও WhatsApp" : "📞 Contact & WhatsApp";
+    titleEl.innerText = isBn ? "📞 যোগাযোগ ও সোশ্যাল লিংক" : "📞 Contact & Social Links";
     bodyEl.innerHTML = isBn
-      ? `<p>সরাসরি হোয়াটসঅ্যাপে মেসেজ দিন:</p>
+      ? `<p>আমাদের অফিসিয়াল প্ল্যাটফর্মগুলোতে যুক্ত হন:</p>
          <a href="https://wa.me/${whatsappNumber.replace('+', '')}" target="_blank" class="whatsapp-btn">💬 WhatsApp (${whatsappNumber})</a>
-         <p><strong>📱 বিকাশ/নগদ:</strong> ${paymentNumber}</p>`
-      : `<p>Message us directly on WhatsApp:</p>
+         <p style="margin-top:8px;"><strong>🌐 Facebook:</strong> <a href="https://www.facebook.com/share/1Qq7NFj1WK/" target="_blank" style="color:#1877f2;">Facebook Page</a></p>
+         <p style="margin-top:6px;"><strong>📸 Instagram:</strong> <a href="https://www.instagram.com/azminislamimon?evlk=cXdva2lka3FiNDk4" target="_blank" style="color:#e1306c;">Instagram Profile</a></p>
+         <p style="margin-top:6px;"><strong>✈️ Telegram:</strong> <a href="https://t.me/azmincru" target="_blank" style="color:#0088cc;">Telegram Channel/Chat</a></p>`
+      : `<p>Connect with us on our official platforms:</p>
          <a href="https://wa.me/${whatsappNumber.replace('+', '')}" target="_blank" class="whatsapp-btn">💬 WhatsApp (${whatsappNumber})</a>
-         <p><strong>📱 bKash/Nagad:</strong> ${paymentNumber}</p>`;
+         <p style="margin-top:8px;"><strong>🌐 Facebook:</strong> <a href="https://www.facebook.com/share/1Qq7NFj1WK/" target="_blank" style="color:#1877f2;">Facebook Page</a></p>
+         <p style="margin-top:6px;"><strong>📸 Instagram:</strong> <a href="https://www.instagram.com/azminislamimon?evlk=cXdva2lka3FiNDk4" target="_blank" style="color:#e1306c;">Instagram Profile</a></p>
+         <p style="margin-top:6px;"><strong>✈️ Telegram:</strong> <a href="https://t.me/azmincru" target="_blank" style="color:#0088cc;">Telegram Channel/Chat</a></p>`;
   } else if (type === "faq") {
     titleEl.innerText = isBn ? "❓ সাধারণ জিজ্ঞাসা (FAQ)" : "❓ Frequently Asked Questions";
     bodyEl.innerHTML = isBn
@@ -309,7 +329,10 @@ function toggleChatWidget() {
 }
 
 function openChatFromMenu() {
-  toggleDrawer();
+  const drawer = document.getElementById("sideDrawer");
+  if (drawer.classList.contains("open")) {
+    toggleDrawer();
+  }
   document.getElementById("chatBox").style.display = "flex";
 }
 
@@ -356,7 +379,7 @@ function sendChatMessage(e) {
   const text = input.value.trim();
   if (!text) return;
   input.value = "";
-  appendChat(text, currentLang === "bn" ? "ধন্যবাদ! দ্রুত সাপোর্টের জন্য WhatsApp-এ নক দিন।" : "Thanks! Message us on WhatsApp for fast support.");
+  appendChat(text, currentLang === "bn" ? "ধন্যবাদ! দ্রুত সাপোর্টের জন্য WhatsApp বা Telegram-এ নক দিন।" : "Thanks! Message us on WhatsApp or Telegram for fast support.");
 }
 
 function appendChat(userMsg, botMsg) {

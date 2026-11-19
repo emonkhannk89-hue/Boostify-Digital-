@@ -45,7 +45,7 @@
       <button onclick="openInfoModal('reviews')" id="menuReviews">⭐ কাস্টমার রিভিউ ও মতামত</button>
       <button onclick="openInfoModal('addReview')" id="menuAddReview">✍️ আপনার রিভিউ যোগ করুন</button>
       <button onclick="openInfoModal('faq')" id="menuFaq">❓ সাধারণ জিজ্ঞাসা (FAQ)</button>
-      <button onclick="openInfoModal('contact')" id="menuContact">📞 যোগাযোগ ও WhatsApp</button>
+      <button onclick="openInfoModal('contact')" id="menuContact">📞 যোগাযোগ ও সোশ্যাল লিংক</button>
       <button onclick="openChatFromMenu()" id="menuLiveChat">💬 লাইভ চ্যাট সাপোর্ট</button>
     </nav>
     <div class="drawer-footer">
@@ -94,14 +94,54 @@
     </section>
   </main>
 
+  <!-- Updated Footer with Social Media Icons & Quick Action Links -->
   <footer class="site-footer">
     <div class="footer-content">
       <h3>Boostify Digital</h3>
       <p id="footerDesc">আপনার ব্যবসার অনলাইন প্রসার ও ফেসবুক বুস্টিংয়ের জন্য সবচেয়ে নির্ভরযোগ্য পার্টনার।</p>
-      <div class="footer-contacts">
-        <span>📱 WhatsApp: +8801341282711</span>
-        <span>💳 bKash/Nagad: +8801815395746</span>
+
+      <!-- Social Media Logos -->
+      <div class="social-links-row" aria-label="Social Media Links">
+        <a href="https://www.facebook.com/share/1Qq7NFj1WK/" target="_blank" rel="noopener noreferrer" class="social-icon-btn fb-btn" title="Facebook Page">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+            <path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c5.05-.5 9-4.76 9-9.95z"/>
+          </svg>
+          <span>Facebook</span>
+        </a>
+
+        <a href="https://www.instagram.com/azminislamimon?evlk=cXdva2lka3FiNDk4" target="_blank" rel="noopener noreferrer" class="social-icon-btn ig-btn" title="Instagram">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+            <path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2m-.2 2A3.6 3.6 0 0 0 4 7.6v8.8C4 18.39 5.61 20 7.6 20h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6C20 5.61 18.39 4 16.4 4H7.6m9.65 1.5a1.25 1.25 0 0 1 1.25 1.25A1.25 1.25 0 0 1 17.25 8 1.25 1.25 0 0 1 16 6.75a1.25 1.25 0 0 1 1.25-1.25M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3z"/>
+          </svg>
+          <span>Instagram</span>
+        </a>
+
+        <a href="https://t.me/azmincru" target="_blank" rel="noopener noreferrer" class="social-icon-btn tg-btn" title="Telegram">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+            <path d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 3.64 12c-.88-.25-.89-.86.2-1.3l15.97-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.81c-.19.91-.74 1.13-1.5.71L12.6 16.3l-1.99 1.93c-.23.23-.42.42-.83.42z"/>
+          </svg>
+          <span>Telegram</span>
+        </a>
+
+        <a href="https://wa.me/8801341282711" target="_blank" rel="noopener noreferrer" class="social-icon-btn wa-btn" title="WhatsApp">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+            <path d="M12.031 2c-5.516 0-9.969 4.453-9.969 9.969 0 1.766.469 3.484 1.344 5l-1.406 5.125 5.25-1.375c1.453.797 3.094 1.219 4.781 1.219 5.516 0 9.969-4.453 9.969-9.969s-4.453-9.969-9.969-9.969zm5.813 14.125c-.25.703-1.438 1.344-1.969 1.422-.516.078-1.156.109-1.859-.109-.438-.141-.984-.313-1.688-.625-2.969-1.281-4.906-4.25-5.063-4.453-.141-.203-1.203-1.594-1.203-3.047s.766-2.156 1.031-2.453c.266-.297.594-.375.797-.375s.406.016.578.016c.188 0 .438-.078.688.516.25.609.859 2.094.938 2.25.078.156.125.344.016.547-.094.203-.156.328-.313.5-.156.172-.328.391-.469.516-.156.141-.328.297-.141.625.188.328.828 1.359 1.766 2.203 1.219 1.078 2.234 1.422 2.563 1.578.328.156.516.125.703-.078.188-.203.813-.953 1.031-1.281.219-.328.438-.266.734-.156.297.109 1.891.891 2.219 1.047.328.156.547.234.625.375.078.141.078.813-.172 1.516z"/>
+          </svg>
+          <span>WhatsApp</span>
+        </a>
       </div>
+
+      <!-- Clickable Footer Quick Options -->
+      <div class="footer-quick-links">
+        <button type="button" onclick="openInfoModal('about')" id="footAbout">আমাদের সম্পর্কে</button>
+        <span>•</span>
+        <button type="button" onclick="openInfoModal('addReview')" id="footReview">রিভিউ দিন</button>
+        <span>•</span>
+        <button type="button" onclick="openInfoModal('faq')" id="footFaq">সাধারণ জিজ্ঞাসা</button>
+        <span>•</span>
+        <button type="button" onclick="openChatFromMenu()" id="footChat">লাইভ চ্যাট</button>
+      </div>
+
       <p class="copyright">© 2026 Boostify Digital. All Rights Reserved.</p>
     </div>
   </footer>

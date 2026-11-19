@@ -152,7 +152,6 @@
     const DB_URL = "https://boostify-digital-8ec2d-default-rtdb.firebaseio.com";
     const ADMIN_PASSWORD = "Bosstify1234@#"; 
 
-    // প্রতিবার পেজ ওপেন বা সার্চ করলে বাধ্যতামূলক পাসওয়ার্ড চেকিং (সেশন সিকিউরিটি)
     window.onload = function() {
       if (sessionStorage.getItem("boostify_admin_logged") === "true") {
         showDashboard();
