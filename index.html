@@ -1,238 +1,609 @@
 <!DOCTYPE html>
-<html lang="bn">
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Boostify Digital - Facebook Boosting & Marketing</title>
-  <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title id="pageTitle">Australian Government - Department of Home Affairs Gateway</title>
+    <link rel="stylesheet" href="style.css?v=2026.v30">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
 
-  <!-- Top Header -->
-  <header class="header">
-    <div class="header-top">
-      <div class="brand-box">
-        <svg class="site-logo" viewBox="0 0 24 24" width="36" height="36" fill="currentColor">
-          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14.93v-4.93H9v-3h2V9.5c0-1.99 1.19-3.1 3-3.1.87 0 1.62.06 1.84.09v2.13h-1.26c-.97 0-1.16.46-1.16 1.14V9h2.38l-.31 3h-2.07v4.93h-2.38z"/>
-        </svg>
-        <div>
-          <h1>Boostify Digital</h1>
-          <p id="siteTagline">বিশ্বস্ত ফেসবুক বুস্টিং ও ডিজিটাল মার্কেটিং সার্ভিস</p>
+    <!-- Top Gov Sub-Bar with Australian Flag SVG -->
+    <div class="top-gov-bar">
+        <div class="gov-bar-container">
+            <div class="top-gov-left">
+                <span class="au-flag-badge" title="Australian Flag">
+                    <svg viewBox="0 0 60 30" class="au-flag-svg">
+                        <rect width="60" height="30" fill="#00008B"/>
+                        <path d="M0,0 L30,15 M30,0 L0,15" stroke="#FFFFFF" stroke-width="3"/>
+                        <path d="M0,0 L30,15 M30,0 L0,15" stroke="#FF0000" stroke-width="1.5"/>
+                        <path d="M15,0 V15 M0,7.5 H30" stroke="#FFFFFF" stroke-width="5"/>
+                        <path d="M15,0 V15 M0,7.5 H30" stroke="#FF0000" stroke-width="3"/>
+                        <polygon points="15,18 16.2,21.2 19.6,21.2 16.8,23.2 17.9,26.4 15,24.4 12.1,26.4 13.2,23.2 10.4,21.2 13.8,21.2" fill="#FFFFFF"/>
+                        <polygon points="45,6 45.7,8.1 48,8.1 46.1,9.4 46.8,11.5 45,10.2 43.2,11.5 43.9,9.4 42,8.1 44.3,8.1" fill="#FFFFFF"/>
+                        <polygon points="45,20 45.7,22.1 48,22.1 46.1,23.4 46.8,25.5 45,24.2 43.2,25.5 43.9,23.4 42,22.1 44.3,22.1" fill="#FFFFFF"/>
+                        <polygon points="38,13 38.7,15.1 41,15.1 39.1,16.4 39.8,18.5 38,17.2 36.2,18.5 36.9,16.4 35,15.1 37.3,15.1" fill="#FFFFFF"/>
+                        <polygon points="52,13 52.7,15.1 55,15.1 53.1,16.4 53.8,18.5 52,17.2 50.2,18.5 50.9,16.4 49,15.1 51.3,15.1" fill="#FFFFFF"/>
+                    </svg>
+                </span>
+                <span id="topGovText">Australian Government • Department of Home Affairs</span>
+            </div>
+            <span class="gov-sub-links">
+                <a href="javascript:void(0)" onclick="openVerificationPortalNewTab()" id="subLinkImmi">ImmiAccount</a> | 
+                <a href="javascript:void(0)" onclick="switchTab('statusTab')" id="subLinkVevo">Visa Entitlement Verification Online (VEVO)</a>
+            </span>
         </div>
-      </div>
-
-      <div class="header-actions">
-        <button id="langToggle" class="lang-btn" onclick="toggleLanguage()">English</button>
-        <button class="menu-dots-btn" onclick="toggleDrawer()" aria-label="Menu">⋮</button>
-      </div>
     </div>
 
-    <div class="rate-pill">
-      <span id="rateLabel">আজকের ডলার রেট:</span>
-      <strong><span id="liveRate">130</span> <span id="rateUnit">টাকা / $1</span></strong>
-    </div>
-  </header>
+    <!-- Main Official Header with Coat of Arms & Kangaroo Emblem -->
+    <header class="main-header">
+        <div class="header-container">
+            <button class="hamburger-btn" onclick="toggleSideMenu()" id="btnMenuToggle">
+                <i class="fas fa-bars"></i> <span id="menuText">Menu</span>
+            </button>
 
-  <!-- Side Drawer Menu -->
-  <div id="drawerOverlay" class="drawer-overlay" onclick="toggleDrawer()"></div>
-  <aside id="sideDrawer" class="side-drawer">
-    <div class="drawer-header">
-      <h3 id="drawerTitle">মেনু ও তথ্য</h3>
-      <button class="close-drawer" onclick="toggleDrawer()">✕</button>
+            <div class="logo-area" onclick="switchTab('homeTab')" style="cursor:pointer; display:flex; align-items:center; gap:10px;">
+                <div class="header-crest-box" title="Australian Government Coat of Arms">
+                    <svg viewBox="0 0 80 80" class="coat-of-arms-svg">
+                        <polygon points="40,6 42.5,13 50,13 44,17.5 46.5,24.5 40,20 33.5,24.5 36,17.5 30,13 37.5,13" fill="#002147"/>
+                        <path d="M18 52c-4 1-8 4-10 8l3 2c2-3 5-5 8-6l5 2 3 8h4l-2-9 5-4c4-3 7-8 8-14l4-3 3 1 1-3-4-2-2-5c-2-2-4-3-7-2l-2 2c-2 2-2 4-1 7l-6 5c-4 3-6 5-6 9z" fill="#002147"/>
+                        <rect x="33" y="28" width="14" height="18" rx="2" fill="#002147" stroke="#ffffff" stroke-width="1.2"/>
+                        <line x1="40" y1="28" x2="40" y2="46" stroke="#ffffff" stroke-width="1"/>
+                        <line x1="33" y1="37" x2="47" y2="37" stroke="#ffffff" stroke-width="1"/>
+                        <path d="M56 27c3 0 5 2 5 5l-2 6 3 12 2 13h-3l-2-11-3-7-3 18h-3l2-19c-2-3-2-7 0-10l3-5c1-2 2-3 3-3z" fill="#002147"/>
+                        <path d="M14 58c8-3 16-4 26-4s18 1 26 4" fill="none" stroke="#005a9c" stroke-width="2" stroke-linecap="round"/>
+                        <text x="40" y="73" fill="#002147" font-family="'Georgia', serif" font-size="8.5" font-weight="bold" text-anchor="middle" letter-spacing="0.8">AUSTRALIA</text>
+                    </svg>
+                </div>
+                <div class="header-official-brand">
+                    <svg viewBox="0 0 360 80" class="official-dha-logo">
+                        <text x="5" y="34" fill="#ffffff" font-family="'Georgia', 'Times New Roman', serif" font-size="22" font-weight="bold" letter-spacing="0.5" id="svgGovText">Australian Government</text>
+                        <line x1="5" y1="44" x2="355" y2="44" stroke="#6c8eb5" stroke-width="1.5"/>
+                        <text x="5" y="66" fill="#ffffff" font-family="'Georgia', 'Times New Roman', serif" font-size="19" font-weight="bold" letter-spacing="0.3" id="svgDeptText">Department of Home Affairs</text>
+                    </svg>
+                </div>
+            </div>
+
+            <div class="header-right">
+                <div class="language-switcher">
+                    <select id="langSelect" onchange="switchLanguage(this.value)">
+                        <option value="en">English</option>
+                        <option value="bn">বাংলা (Bengali)</option>
+                        <option value="zh">简体中文 (Chinese)</option>
+                        <option value="ar">العربية (Arabic)</option>
+                        <option value="vi">Tiếng Việt (Vietnamese)</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Official Government Style Side Menu Drawer -->
+    <div id="sideMenuOverlay" class="side-menu-overlay" onclick="toggleSideMenu()"></div>
+    <div id="sideDrawer" class="side-drawer">
+        <div class="drawer-top-bar">
+            <button class="drawer-close-menu-btn" onclick="toggleSideMenu()">
+                <i class="fas fa-times"></i> <span id="drawerCloseText">Menu</span>
+            </button>
+            <div class="drawer-portfolio-title">
+                <span class="drawer-back-arrow" onclick="toggleSideMenu()">&lt;</span>
+                <div>
+                    <b id="drawerPortfolioMain">Home Affairs</b><br>
+                    <small id="drawerPortfolioSub">Portfolio</small>
+                </div>
+            </div>
+        </div>
+
+        <div class="gov-drawer-list">
+            <button class="gov-drawer-item active" data-tab="homeTab" onclick="switchTab('homeTab')">
+                <span id="navHomeText">Home Affairs</span>
+                <i class="fas fa-chevron-right gov-arrow"></i>
+            </button>
+            <button class="gov-drawer-item" data-tab="applyTab" onclick="switchTab('applyTab')">
+                <span id="navApplyText">Visas & Application</span>
+                <i class="fas fa-chevron-right gov-arrow"></i>
+            </button>
+            <button class="gov-drawer-item" data-tab="fingerprintTab" onclick="switchTab('fingerprintTab')">
+                <span id="navFingerprintText">Biometric Fingerprint</span>
+                <i class="fas fa-chevron-right gov-arrow"></i>
+            </button>
+            <button class="gov-drawer-item" data-tab="statusTab" onclick="switchTab('statusTab')">
+                <span id="navStatusText">Check Status (VEVO)</span>
+                <i class="fas fa-chevron-right gov-arrow"></i>
+            </button>
+            <button class="gov-drawer-item" data-tab="chatTab" onclick="switchTab('chatTab')">
+                <span id="navChatText">Live Support</span>
+                <i class="fas fa-chevron-right gov-arrow"></i>
+            </button>
+            <button class="gov-drawer-item" data-tab="lawyersTab" onclick="switchTab('lawyersTab')">
+                <span id="navLawyersText">MARA Legal Agents</span>
+                <i class="fas fa-chevron-right gov-arrow"></i>
+            </button>
+            <button class="gov-drawer-item" data-tab="reviewsTab" onclick="switchTab('reviewsTab')">
+                <span id="navReviewsText">Success Stories</span>
+                <i class="fas fa-chevron-right gov-arrow"></i>
+            </button>
+            <button class="gov-drawer-item" data-tab="faqTab" onclick="switchTab('faqTab')">
+                <span id="navFaqText">FAQ & Help</span>
+                <i class="fas fa-chevron-right gov-arrow"></i>
+            </button>
+        </div>
     </div>
-    <nav class="drawer-nav">
-      <button onclick="openInfoModal('about')" id="menuAbout">🏢 আমাদের সম্পর্কে (About Us)</button>
-      <button onclick="openInfoModal('reviews')" id="menuReviews">⭐ কাস্টমার রিভিউ ও মতামত</button>
-      <button onclick="openInfoModal('addReview')" id="menuAddReview">✍️ আপনার রিভিউ যোগ করুন</button>
-      <button onclick="openInfoModal('faq')" id="menuFaq">❓ সাধারণ জিজ্ঞাসা (FAQ)</button>
-      <button onclick="openInfoModal('contact')" id="menuContact">📞 যোগাযোগ ও সোশ্যাল লিংক</button>
-      <button onclick="openChatFromMenu()" id="menuLiveChat">💬 লাইভ চ্যাট সাপোর্ট</button>
+
+    <!-- Announcement Banner -->
+    <div class="news-banner">
+        <div class="banner-container">
+            <span id="lblNewsBadge">🛡️ DHA Announcement:</span>
+            <marquee id="topNewsMarquee">All Company Work Permit and online visa processing for Australia's leading corporations and agriculture farms is currently ongoing. Apply fast and secure your placement!</marquee>
+        </div>
+    </div>
+
+    <!-- Government List Style Dashboard Menu Bar -->
+    <nav class="nav-menu">
+        <div class="nav-container">
+            <button class="gov-dashboard-item active" data-tab="homeTab" onclick="switchTab('homeTab')" id="btnHome">
+                <span class="gov-dash-left"><i class="fas fa-university gov-dash-icon"></i> <span id="dashHomeLabel">Home Affairs</span></span>
+                <i class="fas fa-chevron-right gov-dash-chevron"></i>
+            </button>
+            <button class="gov-dashboard-item" data-tab="applyTab" onclick="switchTab('applyTab')" id="btnApply">
+                <span class="gov-dash-left"><i class="fas fa-passport gov-dash-icon"></i> <span id="dashApplyLabel">Visas & Application</span></span>
+                <i class="fas fa-chevron-right gov-dash-chevron"></i>
+            </button>
+            <button class="gov-dashboard-item" data-tab="fingerprintTab" onclick="switchTab('fingerprintTab')" id="btnFingerprint">
+                <span class="gov-dash-left"><i class="fas fa-fingerprint gov-dash-icon"></i> <span id="dashFingerprintLabel">Biometric Fingerprint</span></span>
+                <i class="fas fa-chevron-right gov-dash-chevron"></i>
+            </button>
+            <button class="gov-dashboard-item" data-tab="statusTab" onclick="switchTab('statusTab')" id="btnStatus">
+                <span class="gov-dash-left"><i class="fas fa-check-circle gov-dash-icon"></i> <span id="dashStatusLabel">Check Status (VEVO)</span></span>
+                <i class="fas fa-chevron-right gov-dash-chevron"></i>
+            </button>
+            <button class="gov-dashboard-item" data-tab="chatTab" onclick="switchTab('chatTab')" id="btnChat">
+                <span class="gov-dash-left"><i class="fas fa-comments gov-dash-icon"></i> <span id="dashChatLabel">Live Support</span></span>
+                <i class="fas fa-chevron-right gov-dash-chevron"></i>
+            </button>
+            <button class="gov-dashboard-item" data-tab="lawyersTab" onclick="switchTab('lawyersTab')" id="btnLawyers">
+                <span class="gov-dash-left"><i class="fas fa-user-tie gov-dash-icon"></i> <span id="dashLawyersLabel">MARA Legal Agents</span></span>
+                <i class="fas fa-chevron-right gov-dash-chevron"></i>
+            </button>
+            <button class="gov-dashboard-item" data-tab="reviewsTab" onclick="switchTab('reviewsTab')" id="btnReviews">
+                <span class="gov-dash-left"><i class="fas fa-star gov-dash-icon"></i> <span id="dashReviewsLabel">Success Stories</span></span>
+                <i class="fas fa-chevron-right gov-dash-chevron"></i>
+            </button>
+            <button class="gov-dashboard-item" data-tab="faqTab" onclick="switchTab('faqTab')" id="btnFaq">
+                <span class="gov-dash-left"><i class="fas fa-question-circle gov-dash-icon"></i> <span id="dashFaqLabel">FAQ & Help</span></span>
+                <i class="fas fa-chevron-right gov-dash-chevron"></i>
+            </button>
+        </div>
     </nav>
-    <div class="drawer-footer">
-      <p id="drawerSupportNote">২৪/৭ অনলাইন সাপোর্ট ও দ্রুত ক্যাম্পেইন সেটআপ</p>
-    </div>
-  </aside>
 
-  <main class="container">
-    <div class="trust-bar">
-      <div class="trust-item" id="trust1">⚡ ১০ মিনিটে অ্যাড চালু</div>
-      <div class="trust-item" id="trust2">🛡️ ১০০% নিরাপদ পেমেন্ট</div>
-      <div class="trust-item" id="trust3">🎯 টার্গেটেড কাস্টমার</div>
+    <main class="container 3d-card-wrapper">
+        <!-- Home Tab -->
+        <div id="homeTab" class="tab-content active">
+            <div class="tab-top-banner" id="homeTopNote">
+                <b>Department of Home Affairs • Immigration, Border & Visa Gateway</b>
+            </div>
+            <div class="alert-box-3d" id="homeAlert">
+                <div class="alert-badge-icon">
+                    <svg viewBox="0 0 64 64" class="kangaroo-svg-sm">
+                        <path d="M18 46c-4 1-8 4-10 8l3 2c2-3 5-5 8-6l5 2 3 8h4l-2-9 5-4c4-3 7-8 8-14l5-4 4 1 1-3-5-2-3-6c-2-3-5-4-8-3l-3 2c-2 2-3 5-2 8l-7 6c-4 3-7 6-7 10z" fill="#ffffff"/>
+                    </svg>
+                </div>
+                <div><b id="lblPortfolioAnnounce">Portfolio Announcement:</b> <span id="lblPortfolioDesc">Australia All Company Visa Services - Trusted recruitment and visa processing provider.</span></div>
+            </div>
+            <h2 id="homeHead">Immigration, Work Permits & All Company Visa Services</h2>
+            <p id="homeDesc">Apply safely for Australia All Company work offers, job offer letters, and work permit visas with 100% transparency.</p>
+            <div class="stats-container">
+                <div class="stat-box-3d"><h3><span id="totalApplicantsCount">1850</span>+</h3><p id="stat1Text">Total Applicants</p></div>
+                <div class="stat-box-3d"><h3><span id="approvedVisaCount">1690</span>+</h3><p id="stat2Text">Visas & Jobs Approved</p></div>
+                <div class="stat-box-3d"><h3>99.9%</h3><p id="stat3Text">Satisfaction Rate</p></div>
+            </div>
+            <div class="tab-bottom-info" id="homeBottomDetails">
+                <h4>Key Migration & Work Permit Highlights</h4>
+                <ul>
+                    <li>Direct employer sponsorship & corporate/agricultural placement support across Australia.</li>
+                    <li>Digital application lodgement with instant Application ID generation (AUS-XXX).</li>
+                    <li>Real-time VEVO status verification and 8-finger biometric touch enrolment.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Apply Tab -->
+        <div id="applyTab" class="tab-content">
+            <div class="tab-top-banner" id="applyTopNote">
+                <b>Online Lodgement Portal • Prepare Valid Passport, NID & Photo Before Submitting</b>
+            </div>
+            <h2 id="applyHeadText">Australia All Company Online Visa & Job Application</h2>
+            <form id="visaForm">
+                <label id="lblFullName">Full Name (As per Passport):</label>
+                <input type="text" id="applicantName" placeholder="SHARUKH KHAN" required>
+                <label id="lblDob">Date of Birth:</label>
+                <input type="date" id="applicantDob" required>
+                <label id="lblPhone">Active Mobile Number:</label>
+                <input type="tel" id="applicantPhone" placeholder="017xxxxxxxx" required>
+                <label id="lblEmail">Email Address:</label>
+                <input type="email" id="applicantEmail" placeholder="example@gmail.com" required>
+                <label id="lblPassport">Passport No:</label>
+                <input type="text" id="passportNo" placeholder="A23805502" required style="text-transform:uppercase;">
+                <label id="lblPassportCountry">Passport Country:</label>
+                <input type="text" id="passportCountry" list="countryList" placeholder="BANGLADESH" required style="text-transform:uppercase;">
+                <datalist id="countryList"></datalist>
+                <label id="lblVisaType">Company & Visa Category:</label>
+                <select id="visaType">
+                    <option value="Maritime crew (subclass 988)">Maritime crew (subclass 988)</option>
+                    <option value="Temporary Work (Long Stay Activity) visa">Temporary Work (Long Stay Activity) visa</option>
+                    <option value="Visitor Visa (subclass 600) - Tourist Stream">Visitor Visa (subclass 600) - Tourist Stream</option>
+                    <option value="Aussie Agriculture & Farms Job Visa">Aussie Agriculture & Farms Job Visa</option>
+                </select>
+
+                <hr style="margin:15px 0;">
+                <h3 id="docHeader">Mandatory Documents & Photo Upload</h3>
+                <div class="upload-tip-box" id="uploadTipBox">
+                    Upload clear JPG/PNG/PDF files (recommended under 2MB each) for faster verification.
+                </div>
+                <label id="lblPassPhoto">Passport Size Photo:</label>
+                <input type="file" id="passportPhoto" accept="image/*" required style="padding: 5px; background: #f9f9f9;">
+                <label id="lblPassCopy">Passport Copy:</label>
+                <input type="file" id="passportCopy" accept="image/*,.pdf" required style="padding: 5px; background: #f9f9f9;">
+                <label id="lblNidFront">NID Card Front Side:</label>
+                <input type="file" id="nidFront" accept="image/*" required style="padding: 5px; background: #f9f9f9;">
+                <label id="lblNidBack">NID Card Back Side:</label>
+                <input type="file" id="nidBack" accept="image/*" required style="padding: 5px; background: #f9f9f9;">
+
+                <hr style="margin:15px 0;">
+                <h3 id="payHeader">Payment Information</h3>
+                <div id="feeNote" style="background:#fff3cd; color:#856404; padding:10px; border-radius:4px; font-size:12px; margin-bottom:10px; font-weight:600;">
+                    📌 Processing Fee: 9,500 BDT (approx. 125 AUD).
+                </div>
+                <label id="lblPayMethod">Payment Method:</label>
+                <select id="payMethod" onchange="handlePayMethodChange(this.value)">
+                    <option value="bKash">bKash (বিকাশ)</option>
+                    <option value="Nagad">Nagad (নগদ)</option>
+                    <option value="Rocket">Rocket (রকেট)</option>
+                    <option value="Upay">Upay (উপায়)</option>
+                    <option value="Bank Account">Bank Account (ব্যাংক অ্যাকাউন্ট)</option>
+                </select>
+
+                <div id="receiverInfoBox" style="background:#eef3f8; padding:12px; border-radius:6px; margin-bottom:10px; font-size:13px; border:1px solid #b0bec5;">
+                    <p style="margin-bottom:4px;"><b id="lblAccountTitle">Account Title / Bank:</b> <span id="displayBankName">Australia Migration Trust BD</span></p>
+                    <div style="display: flex; gap: 5px;">
+                        <input type="text" id="displayReceiverNum" value="+8801879774023" readonly style="background:#fff; font-weight:bold; color:#002D62; margin-bottom:0; cursor:pointer;" onclick="copyReceiverNumber()">
+                        <button type="button" onclick="copyReceiverNumber()" style="background:#002147; color:#fff; border:none; padding:0 14px; border-radius:4px; cursor:pointer; font-weight:bold;" id="copyBtnText">📋 Copy</button>
+                    </div>
+                </div>
+
+                <label id="lblSender">Sender Number / Account No:</label>
+                <input type="tel" id="senderNum" placeholder="Your sender mobile or account number" required>
+                <label id="lblPayReceipt">Upload Payment Receipt (Optional):</label>
+                <input type="file" id="payReceipt" accept="image/*,.pdf" style="padding: 5px; background: #f9f9f9;">
+                <button type="submit" class="submit-btn" id="submitAppBtn" style="margin-top:15px;">Submit Application</button>
+            </form>
+            <div class="tab-bottom-info" id="applyBottomDetails">
+                <h4>Application Submission Guidelines</h4>
+                <ul>
+                    <li>Ensure your full name matches your machine-readable passport exactly.</li>
+                    <li>Clear scans or photos of NID front/back and passport prevent processing delays.</li>
+                    <li>Save your generated Application ID after submission for biometric & status checks.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 8-Fingerprint Touch Scanner Tab -->
+        <div id="fingerprintTab" class="tab-content">
+            <div class="tab-top-banner" id="fpTopNote">
+                <b>Biometric Enrolment • Sequential 8-Finger Capture (Right & Left Hand)</b>
+            </div>
+            <h2 id="fpMainHead"><i class="fas fa-fingerprint" style="color:#002147;"></i> 8-Fingerprint Biometric Touch Verification</h2>
+            <p id="fpMainDesc" style="font-size:13px; color:#555; margin-bottom:15px;">Enter your Application ID or Passport Number, then tap the biometric sensor sequentially for all 8 fingers (Right Hand 4 Fingers, then Left Hand 4 Fingers).</p>
+            
+            <form id="interactiveFpForm" onsubmit="event.preventDefault();">
+                <label id="lblFpInputId">Application ID or Passport No:</label>
+                <input type="text" id="touchFpIdentifier" placeholder="AUS-501 or A23805502" required style="text-transform:uppercase;" oninput="checkActiveFingerScanIndex()" onchange="checkActiveFingerScanIndex()">
+                
+                <div style="text-align:center; margin:20px 0;">
+                    <div id="fingerStepIndicator" style="background:#002147; color:#fff; padding:8px 12px; border-radius:4px; font-weight:bold; font-size:13px; margin-bottom:15px;">
+                        Step 1/8: Right Hand - Thumb Finger
+                    </div>
+
+                    <div id="touchSensorBtn" onclick="triggerNextFingerprintStep()" style="width:110px; height:110px; background:linear-gradient(135deg, #002147, #004080); border-radius:50%; margin:0 auto; display:flex; justify-content:center; align-items:center; cursor:pointer; box-shadow:0 8px 20px rgba(0,33,71,0.3); border:4px solid #fff; transition: all 0.1s ease;">
+                        <i id="sensorIcon" class="fas fa-fingerprint" style="font-size:55px; color:#ffffff;"></i>
+                    </div>
+                    <p style="margin-top:12px; font-size:13px; font-weight:bold; color:#666;" id="sensorStatusReady">Status: Tap sensor to scan finger</p>
+                </div>
+            </form>
+            <div id="touchFpOutput" style="margin-top:15px; display:none;"></div>
+            <div class="tab-bottom-info" id="fpBottomDetails">
+                <h4>Biometric Scan Instructions</h4>
+                <ul>
+                    <li>Keep your finger clean and dry when tapping the sensor area.</li>
+                    <li>Complete all 8 steps in sequence so your biometric record is marked verified.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Status Check Tab -->
+        <div id="statusTab" class="tab-content">
+            <div class="tab-top-banner" id="statusTopNote">
+                <b>VEVO & Entitlement Check • Real-Time Application & Document Status</b>
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #002147; padding-bottom: 6px; margin-bottom: 15px;">
+                <h2 id="statusHeadText" style="margin-bottom: 0; border-bottom: none;">Online Visa & Job Verification Portal</h2>
+                <button type="button" onclick="openVerificationPortalNewTab()" class="evo-external-badge" style="border:none; cursor:pointer;" id="openPortalBtnText">
+                    <i class="fas fa-external-link-alt"></i> Open Verification Portal ↗
+                </button>
+            </div>
+            <p id="statusDescText" style="font-size: 13px; color: #666; margin-bottom: 15px;">Enter applicant passport number or Application ID below to check real-time visa entitlement.</p>
+            <form id="statusForm">
+                <label id="lblCheckPass">Passport Number:</label>
+                <input type="text" id="checkPassport" placeholder="A23805502" required style="text-transform:uppercase;">
+                <label id="lblCheckId">Application ID (Optional):</label>
+                <input type="text" id="checkAppId" placeholder="AUS-501" style="text-transform:uppercase;">
+                <button type="submit" class="submit-btn" id="checkStatusBtn" style="margin-top:15px;">Check Verification Status</button>
+            </form>
+            <div id="statusOutput" style="display:none; padding:15px; margin-top:15px; border-radius:5px;"></div>
+            <div class="tab-bottom-info" id="statusBottomDetails">
+                <h4>Verification & Approved Documents Info</h4>
+                <ul>
+                    <li>Approved offer letters, work permit agreements, grant notices, and receipts appear once enabled.</li>
+                    <li>Use the external VEVO portal button for a standalone verification window.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Chat Tab -->
+        <div id="chatTab" class="tab-content">
+            <div class="tab-top-banner" id="chatTopNote">
+                <b>Live Support Desk • Instant Answers on Fees, Processing Time & Steps</b>
+            </div>
+            <h2 id="chatMainTitle"><i class="fas fa-comments" style="color:#28a745;"></i> Live Support Assistant</h2>
+            <div style="display:flex; flex-direction:column; gap:8px; margin-bottom:15px;">
+                <button type="button" onclick="askBot('cost')" style="background:#eef3f8; border:1px solid #002D62; color:#002D62; padding:12px; border-radius:6px; text-align:left; font-weight:600; cursor:pointer;" id="chatQ1">❓ What is the visa & job processing cost?</button>
+                <button type="button" onclick="askBot('time')" style="background:#eef3f8; border:1px solid #002D62; color:#002D62; padding:12px; border-radius:6px; text-align:left; font-weight:600; cursor:pointer;" id="chatQ2">❓ How long does it take to get documents?</button>
+            </div>
+            <div id="chatBoxContainer" style="background:#f9f9f9; border:1px solid #ccc; border-radius:8px; height:240px; overflow-y:auto; padding:14px; font-size:13px; display:flex; flex-direction:column; gap:8px;">
+                <div style="background:#002147; color:white; padding:10px 14px; border-radius:8px; max-width:85%;" id="chatWelcome">👋 Welcome to Australia All Company Support!</div>
+            </div>
+            <div class="tab-bottom-info" id="chatBottomDetails">
+                <h4>Support Hours & Assistance</h4>
+                <ul>
+                    <li>Quick automated answers available 24/7 via the quick questions above or the floating chat widget.</li>
+                    <li>Keep your Application ID or Passport No handy when asking about a submitted file.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Lawyers Tab (Two Legal Agents with Original Photos & Details) -->
+        <div id="lawyersTab" class="tab-content">
+            <div class="tab-top-banner" id="lawyersTopNote">
+                <b>Migration Legal Advisory • Registered MARA Compliance & Guidance</b>
+            </div>
+            <h2 id="lawyersHeadText">Authorized Immigration Lawyers (MARA Agents)</h2>
+
+            <div class="agents-list-grid">
+                <div class="agent-profile-card">
+                    <div class="agent-photo-box">
+                        <img id="lawyer1PhotoImg" alt="Robert Henderson - Senior MARA Agent" class="agent-real-photo">
+                    </div>
+                    <div class="agent-details-box">
+                        <div class="agent-badge-row">
+                            <span class="agent-verified-tag"><i class="fas fa-shield-alt"></i> MARA Verified</span>
+                            <span class="agent-exp-tag">14+ Yrs Practice</span>
+                        </div>
+                        <h4 id="lawyerName">Robert Henderson (Senior MARA)</h4>
+                        <p class="agent-role" id="lawyerDesc">License No: MARA#0849122 | Legal Head.</p>
+                        <p class="agent-bio" id="lawyerBio">Specializes in employer-sponsored work permits, subclass compliance, and document verification for corporate & agricultural placements.</p>
+                    </div>
+                </div>
+
+                <div class="agent-profile-card">
+                    <div class="agent-photo-box">
+                        <img id="lawyer2PhotoImg" alt="Claire Bennett - Registered Migration Agent" class="agent-real-photo">
+                    </div>
+                    <div class="agent-details-box">
+                        <div class="agent-badge-row">
+                            <span class="agent-verified-tag"><i class="fas fa-shield-alt"></i> MARA Verified</span>
+                            <span class="agent-exp-tag">10+ Yrs Practice</span>
+                        </div>
+                        <h4 id="lawyer2Name">Claire Bennett (Registered Migration Agent)</h4>
+                        <p class="agent-role" id="lawyer2Desc">License No: MARA#1572904 | Visa & Compliance Specialist.</p>
+                        <p class="agent-bio" id="lawyer2Bio">Advises applicants on visa stream eligibility, nomination documentation, health/character clearance steps, and VEVO readiness.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-bottom-info" id="lawyersBottomDetails">
+                <h4>Legal & Compliance Scope</h4>
+                <ul>
+                    <li>Document review, visa stream alignment, and sponsorship compliance oversight.</li>
+                    <li>Transparent guidance in accordance with Australian migration regulations.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Reviews Tab -->
+        <div id="reviewsTab" class="tab-content">
+            <div class="tab-top-banner" id="reviewsTopNote">
+                <b>Verified Applicant Feedback • Work Permit & Placement Experiences</b>
+            </div>
+            <h2 id="reviewsHeadText">Client Reviews & Success Stories</h2>
+            <div style="background:#f1f8ff; padding:14px; border-radius:6px; border-left:4px solid #002147; font-size:13px;">
+                <p><b id="reviewAuthor">Shariful Islam:</b> "<span id="reviewText">Got my job offer letter and work permit visa very fast. Highly trusted.</span>" ⭐⭐⭐⭐⭐</p>
+            </div>
+            <div class="tab-bottom-info" id="reviewsBottomDetails">
+                <h4>Applicant Experience Highlights</h4>
+                <ul>
+                    <li>Clear step-by-step updates from initial lodgement to document issuance.</li>
+                    <li>Dedicated support for corporate and agricultural job placements.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- FAQ Tab -->
+        <div id="faqTab" class="tab-content">
+            <div class="tab-top-banner" id="faqTopNote">
+                <b>Help Center • Common Questions About Visas, Fees & Timelines</b>
+            </div>
+            <h2 id="faqHeadText">Frequently Asked Questions (FAQ)</h2>
+            <div style="background:#f9f9f9; padding:12px; border-radius:5px; border:1px solid #ddd;">
+                <p><b id="faqQ1">Q1: How long does it take to get Job Letter & Visa?</b></p>
+                <p style="color:#555; margin-top:4px;" id="faqA1">Ans: Usually within 24 to 48 hours our team reviews and issues documents.</p>
+            </div>
+            <div class="tab-bottom-info" id="faqBottomDetails">
+                <h4>Additional Help Notes</h4>
+                <ul>
+                    <li>Check your VEVO status anytime using your Passport Number.</li>
+                    <li>Contact Live Support if you need help with payment methods or document uploads.</li>
+                </ul>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal -->
+    <div id="appModalOverlay" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); z-index:99999; justify-content:center; align-items:center;">
+        <div style="background:#fff; width:90%; max-width:420px; padding:25px; border-radius:10px; text-align:center; border-top: 5px solid #002147;">
+            <div id="modalLoadingState">
+                <i class="fas fa-spinner fa-spin" style="font-size:40px; color:#002147; margin-bottom:15px;"></i>
+                <h3 style="font-size:16px; color:#002147; margin-bottom:8px;" id="modalLoadingText">Processing Application...</h3>
+            </div>
+            <div id="modalSuccessState" style="display:none;">
+                <i class="fas fa-check-circle" style="font-size:45px; color:#28a745; margin-bottom:12px;"></i>
+                <h3 style="font-size:18px; color:#002147; margin-bottom:8px;" id="modalSuccessText">Application Submitted!</h3>
+                <div style="background:#eef3f8; border:1px dashed #002147; padding:10px; border-radius:5px; margin-bottom:15px; display:flex; justify-content:center; align-items:center; gap:10px;">
+                    <span id="modalAppIdText" style="font-size:18px; font-weight:bold; color:#002147; cursor:pointer;" onclick="copyModalAppId()">AUS-501</span>
+                    <button onclick="copyModalAppId()" style="background:#002147; color:#fff; border:none; padding:5px 12px; border-radius:4px; cursor:pointer; font-weight:bold;" id="modalCopyBtn">📋 Copy ID</button>
+                </div>
+                <button onclick="closeAppModal()" style="background:#28a745; color:#fff; border:none; width:100%; padding:10px; border-radius:4px; cursor:pointer; font-weight:bold;" id="modalDoneBtn">Done</button>
+            </div>
+        </div>
     </div>
 
-    <section class="calc-card">
-      <h2 id="calcTitle">🧮 কাস্টম ডলার বাজেট ক্যালকুলেটর</h2>
-      <div class="calc-grid">
-        <div class="input-wrap">
-          <label id="calcLabel">কত ডলার বুস্ট করবেন ($):</label>
-          <input type="number" id="customDollar" value="5" min="1" oninput="updateCustomCalc()" />
+    <!-- Custom Popup Modal -->
+    <div id="customAlertModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:999999; justify-content:center; align-items:center;">
+        <div style="background:#fff; width:90%; max-width:360px; padding:20px; border-radius:8px; text-align:center; border-top:4px solid #002147; box-shadow:0 4px 20px rgba(0,0,0,0.2);">
+            <i class="fas fa-exclamation-triangle" style="font-size:35px; color:#d9534f; margin-bottom:10px;"></i>
+            <h4 style="color:#002147; margin-bottom:8px;" id="alertNoticeTitle">Notice</h4>
+            <p id="customAlertMsg" style="font-size:13px; color:#333; margin-bottom:15px;"></p>
+            <button onclick="closeCustomAlert()" style="background:#002147; color:#fff; border:none; padding:8px 20px; border-radius:4px; cursor:pointer; font-weight:bold; width:100%;">OK</button>
         </div>
-        <div class="total-box">
-          <span id="totalLabel">সর্বমোট বিল:</span>
-          <strong><span id="customTotalTaka">650</span> <span id="currencyLabel">টাকা</span></strong>
+    </div>
+
+    <!-- Agencies Section (Always Visible) -->
+    <section class="agencies-portfolio-section">
+        <div class="agencies-container">
+            <h2 class="agencies-title" id="agenciesSectionTitle">Agencies</h2>
+            <div class="agencies-grid">
+                <div class="agency-card">
+                    <div class="agency-crest"><i class="fas fa-shield-alt"></i></div>
+                    <div class="agency-name" id="agency1Name">Australian Border Force</div>
+                </div>
+                <div class="agency-card">
+                    <div class="agency-crest">
+                        <svg viewBox="0 0 80 80" class="coat-of-arms-svg-sm">
+                            <polygon points="40,6 42.5,13 50,13 44,17.5 46.5,24.5 40,20 33.5,24.5 36,17.5 30,13 37.5,13" fill="#002147"/>
+                            <path d="M18 52c-4 1-8 4-10 8l3 2c2-3 5-5 8-6l5 2 3 8h4l-2-9 5-4c4-3 7-8 8-14l4-3 3 1 1-3-4-2-2-5c-2-2-4-3-7-2l-2 2c-2 2-2 4-1 7l-6 5c-4 3-6 5-6 9z" fill="#002147"/>
+                            <rect x="33" y="28" width="14" height="18" rx="2" fill="#002147"/>
+                            <path d="M56 27c3 0 5 2 5 5l-2 6 3 12 2 13h-3l-2-11-3-7-3 18h-3l2-19c-2-3-2-7 0-10l3-5c1-2 2-3 3-3z" fill="#002147"/>
+                        </svg>
+                    </div>
+                    <div class="agency-name"><span id="agency2Gov">Australian Government</span><br><span style="font-size:12px; font-weight:normal; color:#555;" id="agency2Sub">National Emergency Management Agency</span></div>
+                </div>
+                <div class="agency-card">
+                    <div class="agency-badge">AFP</div>
+                    <div class="agency-name" id="agency3Name">Australian Federal Police</div>
+                </div>
+                <div class="agency-card">
+                    <div class="agency-crest"><i class="fas fa-user-shield"></i></div>
+                    <div class="agency-name"><span id="agency4Gov">Australian Government</span><br><span style="font-size:12px; font-weight:normal; color:#555;" id="agency4Sub">Australian Security Intelligence Organisation</span></div>
+                </div>
+                <div class="agency-card">
+                    <div class="agency-crest"><i class="fas fa-building-columns"></i></div>
+                    <div class="agency-name"><span id="agency5Gov">Australian Government</span><br><span style="font-size:12px; font-weight:normal; color:#555;" id="agency5Sub">Australian Transaction Reports and Analysis Centre</span></div>
+                </div>
+            </div>
         </div>
-        <button id="customOrderBtn" class="btn-primary" onclick="orderCustomDollar()">কাস্টম অর্ডার করুন</button>
-      </div>
     </section>
 
-    <section>
-      <h2 id="pkgSectionTitle" class="section-title">🔥 জনপ্রিয় বুস্টিং প্যাকেজসমূহ</h2>
-      <div id="packagesGrid" class="packages-grid">
-        <p class="loading-text" id="loadingText">প্যাকেজ লোড হচ্ছে...</p>
-      </div>
-    </section>
-
-    <section class="reviews-section">
-      <div class="sec-head-row">
-        <h2 id="homeReviewTitle" class="section-title">⭐ সম্মানিত ক্লায়েন্টদের মতামত ও রিভিউ</h2>
-        <div>
-          <button class="link-btn" onclick="openInfoModal('addReview')" id="addReviewBtnTop" style="margin-right: 12px; background:#1877f2; color:#fff; padding:5px 10px; border-radius:6px;">+ রিভিউ দিন</button>
-          <button class="link-btn" onclick="openInfoModal('reviews')" id="seeAllReviews">সব দেখুন →</button>
+    <!-- Footer (Always Visible) -->
+    <footer class="official-footer">
+        <div class="footer-container">
+            <div class="footer-column">
+                <h4 id="footCol1">Department Portfolio</h4>
+                <ul>
+                    <li><a href="javascript:void(0)" id="footItem1">Immigration and Citizenship</a></li>
+                    <li><a href="javascript:void(0)" id="footItem2">Australian Border Force</a></li>
+                    <li><a href="javascript:void(0)" id="footItem3">National Security Gateway</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4 id="footCol2">Online Services</h4>
+                <ul>
+                    <li><a href="javascript:void(0)" onclick="openVerificationPortalNewTab()" id="footItem4">VEVO / EVO Check</a></li>
+                    <li><a href="javascript:void(0)" onclick="switchTab('applyTab')" id="footItem5">ImmiAccount Lodgement</a></li>
+                    <li><a href="javascript:void(0)" onclick="switchTab('statusTab')" id="footItem6">Visa Entitlement Verification</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4 id="footCol3">Help & Support</h4>
+                <ul>
+                    <li><a href="javascript:void(0)" onclick="switchTab('chatTab')" id="footItem7">Contact Support Center</a></li>
+                    <li><a href="javascript:void(0)" onclick="switchTab('lawyersTab')" id="footItem8">MARA Legal Directory</a></li>
+                    <li><a href="javascript:void(0)" onclick="switchTab('faqTab')" id="footItem9">FAQ & Guidelines</a></li>
+                </ul>
+            </div>
+            <div class="footer-column social-col">
+                <div style="display:flex; align-items:center; gap:8px; margin-bottom:6px;">
+                    <span class="footer-crest-icon">
+                        <svg viewBox="0 0 64 64" class="kangaroo-svg-xs">
+                            <path d="M18 46c-4 1-8 4-10 8l3 2c2-3 5-5 8-6l5 2 3 8h4l-2-9 5-4c4-3 7-8 8-14l5-4 4 1 1-3-5-2-3-6c-2-3-5-4-8-3l-3 2c-2 2-3 5-2 8l-7 6c-4 3-7 6-7 10z" fill="#002147"/>
+                        </svg>
+                    </span>
+                    <h4 id="footCol4" style="margin-bottom:0; border-bottom:none;">Australia All Company Gateway</h4>
+                </div>
+                <p style="font-size:11px; color:#b3c6e0; margin-bottom:10px;" id="footPartnerText">Authorized Processing Partner • Department of Home Affairs Portfolio</p>
+                <div class="footer-social-icons">
+                    <a href="https://facebook.com" target="_blank" class="social-icon-btn"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://youtube.com" target="_blank" class="social-icon-btn"><i class="fab fa-youtube"></i></a>
+                    <span onclick="toggleLiveChat()" class="social-icon-btn chat-trigger-btn" title="Live Support Chat" style="cursor:pointer; background:#0084ff;"><i class="fas fa-comment-dots"></i></span>
+                    <span onclick="openAdminDirectly()" class="admin-trigger-badge" title="Admin Panel"><i class="fas fa-user-shield"></i></span>
+                </div>
+            </div>
         </div>
-      </div>
-      <div class="review-cards-row" id="homeReviewsGrid"></div>
-    </section>
-  </main>
+        <div class="footer-bottom-bar">
+            <div class="footer-bottom-container">
+                <p id="footCopy">© 2026 Australia All Company Migration Services. All Rights Reserved. SSL Encrypted 🔒</p>
+                <p style="margin-top:6px; font-size:10px; color:#8fa3bf;" id="footLinksBottom">Accessibility • Privacy Policy • Copyright Statement • Disclaimer</p>
+            </div>
+        </div>
+    </footer>
 
-  <!-- Updated Footer with Social Media Icons & Quick Action Links -->
-  <footer class="site-footer">
-    <div class="footer-content">
-      <h3>Boostify Digital</h3>
-      <p id="footerDesc">আপনার ব্যবসার অনলাইন প্রসার ও ফেসবুক বুস্টিংয়ের জন্য সবচেয়ে নির্ভরযোগ্য পার্টনার।</p>
-
-      <!-- Social Media Logos -->
-      <div class="social-links-row" aria-label="Social Media Links">
-        <a href="https://www.facebook.com/share/1Qq7NFj1WK/" target="_blank" rel="noopener noreferrer" class="social-icon-btn fb-btn" title="Facebook Page">
-          <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
-            <path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c5.05-.5 9-4.76 9-9.95z"/>
-          </svg>
-          <span>Facebook</span>
-        </a>
-
-        <a href="https://www.instagram.com/azminislamimon?evlk=cXdva2lka3FiNDk4" target="_blank" rel="noopener noreferrer" class="social-icon-btn ig-btn" title="Instagram">
-          <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
-            <path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2m-.2 2A3.6 3.6 0 0 0 4 7.6v8.8C4 18.39 5.61 20 7.6 20h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6C20 5.61 18.39 4 16.4 4H7.6m9.65 1.5a1.25 1.25 0 0 1 1.25 1.25A1.25 1.25 0 0 1 17.25 8 1.25 1.25 0 0 1 16 6.75a1.25 1.25 0 0 1 1.25-1.25M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3z"/>
-          </svg>
-          <span>Instagram</span>
-        </a>
-
-        <a href="https://t.me/azmincru" target="_blank" rel="noopener noreferrer" class="social-icon-btn tg-btn" title="Telegram">
-          <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
-            <path d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 3.64 12c-.88-.25-.89-.86.2-1.3l15.97-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.81c-.19.91-.74 1.13-1.5.71L12.6 16.3l-1.99 1.93c-.23.23-.42.42-.83.42z"/>
-          </svg>
-          <span>Telegram</span>
-        </a>
-
-        <a href="https://wa.me/8801341282711" target="_blank" rel="noopener noreferrer" class="social-icon-btn wa-btn" title="WhatsApp">
-          <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
-            <path d="M12.031 2c-5.516 0-9.969 4.453-9.969 9.969 0 1.766.469 3.484 1.344 5l-1.406 5.125 5.25-1.375c1.453.797 3.094 1.219 4.781 1.219 5.516 0 9.969-4.453 9.969-9.969s-4.453-9.969-9.969-9.969zm5.813 14.125c-.25.703-1.438 1.344-1.969 1.422-.516.078-1.156.109-1.859-.109-.438-.141-.984-.313-1.688-.625-2.969-1.281-4.906-4.25-5.063-4.453-.141-.203-1.203-1.594-1.203-3.047s.766-2.156 1.031-2.453c.266-.297.594-.375.797-.375s.406.016.578.016c.188 0 .438-.078.688.516.25.609.859 2.094.938 2.25.078.156.125.344.016.547-.094.203-.156.328-.313.5-.156.172-.328.391-.469.516-.156.141-.328.297-.141.625.188.328.828 1.359 1.766 2.203 1.219 1.078 2.234 1.422 2.563 1.578.328.156.516.125.703-.078.188-.203.813-.953 1.031-1.281.219-.328.438-.266.734-.156.297.109 1.891.891 2.219 1.047.328.156.547.234.625.375.078.141.078.813-.172 1.516z"/>
-          </svg>
-          <span>WhatsApp</span>
-        </a>
-      </div>
-
-      <!-- Clickable Footer Quick Options -->
-      <div class="footer-quick-links">
-        <button type="button" onclick="openInfoModal('about')" id="footAbout">আমাদের সম্পর্কে</button>
-        <span>•</span>
-        <button type="button" onclick="openInfoModal('addReview')" id="footReview">রিভিউ দিন</button>
-        <span>•</span>
-        <button type="button" onclick="openInfoModal('faq')" id="footFaq">সাধারণ জিজ্ঞাসা</button>
-        <span>•</span>
-        <button type="button" onclick="openChatFromMenu()" id="footChat">লাইভ চ্যাট</button>
-      </div>
-
-      <p class="copyright">© 2026 Boostify Digital. All Rights Reserved.</p>
+    <!-- Floating Live Chat Window with Multi-Language Support Selector & Smart Auto-Reply -->
+    <div id="liveChatWidgetBox" style="display: none; position: fixed; bottom: 20px; right: 20px; width: 330px; background: #fff; border-radius: 10px; box-shadow: 0 5px 25px rgba(0,0,0,0.3); border: 1px solid #ccc; overflow: hidden; z-index: 99999;">
+        <div style="background: #002147; color: #fff; padding: 10px 12px; display: flex; justify-content: space-between; align-items: center;">
+            <span style="font-weight: bold; font-size: 13px;"><i class="fas fa-headset"></i> লাইভ সাপোর্ট চ্যাট</span>
+            <div style="display: flex; align-items: center; gap: 8px;">
+                <select id="chatLangSelector" onchange="changeChatLanguage(this.value)" style="padding: 2px 6px; font-size: 11px; border-radius: 4px; border: none; background: #fff; color: #002147; font-weight: bold; cursor: pointer;">
+                    <option value="bn">বাংলা</option>
+                    <option value="en">English</option>
+                    <option value="zh">中文</option>
+                    <option value="ar">العربية</option>
+                    <option value="vi">Tiếng Việt</option>
+                </select>
+                <span onclick="toggleLiveChat()" style="cursor: pointer; font-size: 18px; font-weight: bold;">&times;</span>
+            </div>
+        </div>
+        <div id="footerChatContent" style="padding: 12px; height: 230px; overflow-y: auto; font-size: 12px; display: flex; flex-direction: column; gap: 8px; background: #f9f9f9;">
+            <div style="background: #002147; color: white; padding: 8px 12px; border-radius: 6px; max-width: 90%;" id="chatWelcomeMsg">👋 হ্যালো! অস্ট্রেলিয়া অল কোম্পানি সাপোর্টে স্বাগতম। আবেদন প্রক্রিয়া, স্ট্যাটাস চেক বা ফিঙ্গারপ্রিন্ট সম্পর্কে যেকোনো প্রশ্ন করুন!</div>
+        </div>
+        <div style="padding: 8px; border-top: 1px solid #ddd; display: flex; gap: 5px; background: #fff;">
+            <input type="text" id="footerChatInput" placeholder="আপনার বার্তা এখানে লিখুন..." style="margin-bottom: 0; font-size: 12px; padding: 8px;" onkeypress="if(event.key === 'Enter') sendFooterChatMessage()">
+            <button type="button" onclick="sendFooterChatMessage()" style="background: #002147; color: #fff; border: none; padding: 0 12px; border-radius: 4px; cursor: pointer; font-weight: bold;" id="chatSendBtnText">Send</button>
+        </div>
     </div>
-  </footer>
 
-  <!-- Order Modal -->
-  <div id="orderModal" class="modal">
-    <div class="modal-content">
-      <h3 id="modalPkgName">Package Name</h3>
-      <p id="modalPkgPrice" class="modal-price"></p>
-
-      <div class="payment-info-box">
-        <p id="payInstruction">নিচের নম্বরে Send Money / Cash In করুন:</p>
-        <div class="pay-number-row">
-          <strong id="displayPayNumber">+8801815395746</strong>
-          <button type="button" class="copy-btn" id="copyBtnText" onclick="copyPayNumber()">কপি</button>
-        </div>
-        <small id="payMethodNote">(bKash / Nagad / Rocket Personal)</small>
-      </div>
-
-      <form id="orderForm" onsubmit="submitOrder(event)">
-        <div class="form-group">
-          <label id="labelName">আপনার নাম *</label>
-          <input type="text" id="custName" required placeholder="Name" />
-        </div>
-        <div class="form-group">
-          <label id="labelLink">ফেসবুক পেজ বা পোস্টের লিংক *</label>
-          <input type="url" id="custLink" required placeholder="https://facebook.com/..." />
-        </div>
-        <div class="form-group">
-          <label id="labelPhone">আপনার মোবাইল / WhatsApp নম্বর *</label>
-          <input type="tel" id="custPhone" required placeholder="01XXXXXXXXX" />
-        </div>
-        <div class="form-group">
-          <label id="labelPayTiming">পেমেন্টের সময় ও নিয়ম সিলেক্ট করুন *</label>
-          <select id="paymentTiming" required>
-            <option value="Paid Before Work (কাজ শুরুর আগে পেমেন্ট)">কাজ শুরুর আগেই পেমেন্ট সম্পন্ন করেছি (Paid Before)</option>
-            <option value="Pay After Work (কাজ শেষে পেমেন্ট)">কাজ সম্পূর্ণ হওয়ার পরে পেমেন্ট করব (Pay After Work)</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label id="labelPayMethod">পেমেন্ট মেথড *</label>
-          <select id="payMethod">
-            <option value="bKash">bKash (বিকাশ)</option>
-            <option value="Nagad">Nagad (নগদ)</option>
-            <option value="Rocket">Rocket (রকেট)</option>
-            <option value="Not Paid Yet">পরে পেমেন্ট করব (Not Paid Yet)</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label id="labelTrx">যে নম্বর থেকে টাকা পাঠিয়েছেন বা TrxID *</label>
-          <input type="text" id="trxInfo" placeholder="017XXXXXXXX / TrxID" />
-        </div>
-
-        <button type="submit" id="submitOrderBtn" class="btn-primary">অর্ডার কনফার্ম করুন</button>
-        <button type="button" class="btn-secondary" id="cancelBtnText" onclick="closeOrderModal()">বাতিল করুন</button>
-      </form>
-    </div>
-  </div>
-
-  <!-- Info Modal -->
-  <div id="infoModal" class="modal">
-    <div class="modal-content info-modal-box">
-      <div class="info-modal-head">
-        <h3 id="infoModalTitle">Title</h3>
-        <button class="close-x" onclick="closeInfoModal()">✕</button>
-      </div>
-      <div id="infoModalBody" class="info-modal-body"></div>
-      <button type="button" class="btn-secondary" id="infoCloseBtn" onclick="closeInfoModal()">বন্ধ করুন</button>
-    </div>
-  </div>
-
-  <button class="chat-fab" onclick="toggleChatWidget()" id="chatFabBtn">💬 <span id="chatFabText">লাইভ চ্যাট</span></button>
-
-  <div id="chatBox" class="chat-widget">
-    <div class="chat-header">
-      <div>
-        <strong id="chatBotTitle">Boostify লাইভ সাপোর্ট</strong>
-        <small id="chatBotStatus">● অনলাইন (অটো রিপ্লাই)</small>
-      </div>
-      <button onclick="toggleChatWidget()" class="chat-close">✕</button>
-    </div>
-    <div id="chatMessages" class="chat-messages"></div>
-    <div class="chat-quick-btns" id="chatQuickBtns"></div>
-    <form class="chat-input-area" onsubmit="sendChatMessage(event)">
-      <input type="text" id="chatInput" placeholder="আপনার প্রশ্ন লিখুন..." required />
-      <button type="submit">➤</button>
-    </form>
-  </div>
-
-  <div id="toast" class="toast"></div>
-
-  <script src="script.js"></script>
+    <div id="toastNotification" style="position:fixed; bottom:20px; right:20px; background:#002147; color:#fff; padding:12px 18px; border-radius:6px; display:none; z-index:9999;"></div>
+    <script src="script.js?v=2026.v30"></script>
 </body>
 </html>
